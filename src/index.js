@@ -6,4 +6,4 @@ import Home from './components/Home';
 import './index.css';
 
 
-ReactDOM.render(<Home />, document.querySelector('#root'));
+ReactDOM.render(<Login />, document.querySelector('#root'));
