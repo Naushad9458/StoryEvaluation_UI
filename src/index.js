@@ -8,4 +8,4 @@ import Home from './components/Home';
 import './index.css';
 
 
-ReactDOM.render(<ImageDisplay />, document.querySelector('#root'));
+ReactDOM.render(<Login />, document.querySelector('#root'));
