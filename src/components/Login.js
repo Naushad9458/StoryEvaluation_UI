@@ -22,18 +22,23 @@ const theme = createTheme();
 
 export default function Login() {
   
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      username: data.get('username'),
-      password: data.get('password'),
+    
+    
+    const response = await fetch('https://4b97-136-206-48-13.ngrok-free.app/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ "username": event.currentTarget.username.value, "password": event.currentTarget.password.value}),
     });
-    
 
-    
-    
-    
+    const body = await response.text();
+    if(body==='True'){
+      console.log('Logged in')
+    }
+    console.log(body);    
   };
 
   return (
@@ -53,7 +58,7 @@ export default function Login() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Login
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField

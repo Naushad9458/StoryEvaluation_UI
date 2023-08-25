@@ -25,8 +25,6 @@ export default function ImageDisplay(props) {
 
 
   return (
-    
-    
     <ImageList  cellheight={250} cols={6}>
         
       {storyData.map((item) => (
@@ -38,7 +36,6 @@ export default function ImageDisplay(props) {
           />
         </ImageListItem>
       ))}
-    </ImageList>
-        
+    </ImageList>      
   );
 }
