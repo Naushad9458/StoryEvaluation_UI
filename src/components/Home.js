@@ -10,9 +10,11 @@ import {
   TableHead,
   TableRow,
   Paper,
-  Button
+  Button,
+  nativeSelectClasses
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
+import { useNavigate ,Navigate } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   table: {
@@ -21,8 +23,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Home = () => {
+const Home = ({isAuthenticated, setIsAuthenticated}) => {
   // Sample data for pending and completed tasks
+
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    navigate('/');
+  }
+
+  
+ 
   const [tasks, setTasks] = useState([
     {
       id: 1,
@@ -41,9 +53,13 @@ const Home = () => {
 
   const classes = useStyles();
 
+  if (!isAuthenticated) {
+    return <Navigate to="/" />;
+  }
+
   return (
     <div>
-    <Navbar/>
+    <Navbar handleLogout={handleLogout}/>
     <Container>
 
 

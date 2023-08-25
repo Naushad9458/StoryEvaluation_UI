@@ -12,15 +12,16 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
-
+import { useNavigate, Navigate} from 'react-router-dom';
 
 
 
 const theme = createTheme();
 
 
-export default function Login() {
+export default function Login({isAuthenticated, setIsAuthenticated}) {
+
+  const navigate = useNavigate();
   
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -37,9 +38,16 @@ export default function Login() {
     const body = await response.text();
     if(body==='True'){
       console.log('Logged in')
+      setIsAuthenticated(true);
+      console.log(isAuthenticated)
+      navigate('/home');
     }
     console.log(body);    
   };
+
+  if (isAuthenticated) {
+    return <Navigate to="/home" />;
+  }
 
   return (
     
