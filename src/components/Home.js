@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from './Navbar';
 import {
   Container,
@@ -28,28 +28,38 @@ const Home = ({isAuthenticated, setIsAuthenticated}) => {
 
   const navigate = useNavigate();
 
+  const [error, setError] = useState(null);
+  const [tasks, setTasks] = useState([]);
+
   const handleLogout = () => {
     setIsAuthenticated(false);
     navigate('/');
   }
 
+  useEffect(() => {
+    // Make an API call when the component mounts
+    fetch('https://4b97-136-206-48-13.ngrok-free.app/fetch_tasks', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('Success:', data);
+        setTasks(data);
+        
+      })
+      .catch((error) => {
+        console.error('Error fetching data: ', error);
+        
+      });
+  }, []);
+
   
  
-  const [tasks, setTasks] = useState([
-    {
-      id: 1,
-      taskType: 'Pending',
-      completionDate: null,
-      description: 'Task 1 description',
-    },
-    {
-      id: 2,
-      taskType: 'Completed',
-      completionDate: '2023-07-24', // Replace with an actual completion date
-      description: 'Task 2 description',
-    },
-    // Add more tasks here...
-  ]);
+  
 
   const classes = useStyles();
 
@@ -70,19 +80,21 @@ const Home = ({isAuthenticated, setIsAuthenticated}) => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Task ID</TableCell>
-              <TableCell>Task Type</TableCell>
-              <TableCell>Description</TableCell>
+              <TableCell>Event ID</TableCell>
+              <TableCell>Sub Event ID</TableCell>
+              <TableCell>Event Type</TableCell>
+              <TableCell>Event Date</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {tasks
-              .filter((task) => task.taskType === 'Pending')
+              .filter((task) => task.event_type === 'normal')
               .map((task) => (
                 <TableRow key={task.id}>
-                  <TableCell>{task.id}</TableCell>
-                  <TableCell>{task.taskType}</TableCell>
-                  <TableCell>{task.description}</TableCell>
+                  <TableCell>{task.event_id}</TableCell>
+                  <TableCell>{task.subevent_id}</TableCell>
+                  <TableCell>{task.event_type}</TableCell>
+                  <TableCell>{task.event_date}</TableCell>
                   <TableCell>
                       <Button color="primary">
                         View Details
@@ -94,33 +106,6 @@ const Home = ({isAuthenticated, setIsAuthenticated}) => {
         </Table>
       </TableContainer>
 
-      <Typography variant="h6" component="h2" gutterBottom>
-        Completed Tasks
-      </Typography>
-      <TableContainer component={Paper} className={classes.table}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Task ID</TableCell>
-              <TableCell>Task Type</TableCell>
-              <TableCell>Completion Date</TableCell>
-              <TableCell>Description</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {tasks
-              .filter((task) => task.taskType === 'Completed')
-              .map((task) => (
-                <TableRow key={task.id}>
-                  <TableCell>{task.id}</TableCell>
-                  <TableCell>{task.taskType}</TableCell>
-                  <TableCell>{task.completionDate}</TableCell>
-                  <TableCell>{task.description}</TableCell>
-                </TableRow>
-              ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
     </Container>
     </div>
   );
