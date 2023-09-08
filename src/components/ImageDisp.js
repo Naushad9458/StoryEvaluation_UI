@@ -8,18 +8,34 @@ export default function ImageDisplay(props) {
 
     //const {state} = useLocation();
     //const {id} = state;
-    const [storyData, setImageData] = React.useState([])
+    const [imageData, setImageData] = React.useState([])
+
+    const {eventDate} = props;
+    const {eventID} = props;
+
+
+    console.log(eventDate, 'ImageDisplay')
+    console.log(eventID, 'ImageDisplay')
+    
+    
 
     useEffect(() => {
         fetchData();
       }, []);
     
-      const fetchData = () => {
-        fetch("http://localhost:5000/transition_events_pics?key=" + 2)
+    const fetchData = () => {
+        fetch("https://4b97-136-206-48-13.ngrok-free.app/fetch_images", {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({eventID: eventID, eventDate: eventDate})
+          
+        })
         .then((res) => res.json())
         .then((json) => {
             setImageData(json)
-            console.log('Pics')
+          
             console.log(json)
         })}
 
@@ -27,10 +43,10 @@ export default function ImageDisplay(props) {
   return (
     <ImageList  cellheight={250} cols={6}>
         
-      {storyData.map((item) => (
-        <ImageListItem key={item.image}>
+      {imageData.map((item) => (
+        <ImageListItem key={item}>
           <img
-            src= {'http://localhost:5000/20220607/' + item.image} 
+            src= {process.env.PUBLIC_URL + 'images/20220605/' + item} 
             alt={item.id}
             loading="lazy"
           />

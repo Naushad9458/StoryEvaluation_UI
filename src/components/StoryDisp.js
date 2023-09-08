@@ -9,11 +9,16 @@ import Button from '@mui/material/Button';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import TextField from '@mui/material/TextField';
+import Questions from './Questions';
 
-const StoryDisp = () => {
+const StoryDisp = (props) => {
     const theme = useTheme();
     const [activeStep, setActiveStep] = React.useState(0);
     const [editDisabled, setEditDisabled] = React.useState(true);
+
+    const {eventDate} = props;
+    const {eventID} = props;
+    
     const handleNext = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
     };
@@ -39,6 +44,7 @@ const StoryDisp = () => {
   
 
     return (
+      <div>
         <Box sx={{  flexGrow: 1 }}>
         <Paper
         square
@@ -103,6 +109,8 @@ const StoryDisp = () => {
       
     /> 
   </Box>
+  <Questions activeStep={activeStep}/>
+  </div>
   );
 };
 

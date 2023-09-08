@@ -4,6 +4,7 @@ import Login from './Login';
 import Home from './Home';
 import Admin from './Admin';
 import RegisterUser from './RegisterUser';
+import Eval from './Eval';
 import { useState } from 'react';
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
         <Route path="/home" element={<Home isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated}/>} />
         <Route path="/adduser" element={<RegisterUser />} />
         <Route path="/admin" element={<Admin />} />
+        <Route path="/eval/:eventDate/:eventID" element={<Eval />} />
         {/* Other routes */}
       </Routes>
     </Router>

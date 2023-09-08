@@ -36,6 +36,14 @@ const Home = ({isAuthenticated, setIsAuthenticated}) => {
     navigate('/');
   }
 
+  const viewTask = (event_id, event_date) => {
+    console.log(event_date);
+    console.log(event_id);
+    
+    navigate(`/eval/${event_date}/${event_id}`);
+    //navigate(`/eval`);
+  }
+
   useEffect(() => {
     // Make an API call when the component mounts
     fetch('https://4b97-136-206-48-13.ngrok-free.app/fetch_tasks', {
@@ -80,23 +88,19 @@ const Home = ({isAuthenticated, setIsAuthenticated}) => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Event ID</TableCell>
-              <TableCell>Sub Event ID</TableCell>
-              <TableCell>Event Type</TableCell>
+              
+              <TableCell>Task ID</TableCell>
               <TableCell>Event Date</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {tasks
-              .filter((task) => task.event_type === 'normal')
               .map((task) => (
-                <TableRow key={task.id}>
-                  <TableCell>{task.event_id}</TableCell>
-                  <TableCell>{task.subevent_id}</TableCell>
-                  <TableCell>{task.event_type}</TableCell>
+                <TableRow key={task.event_id+'_'+task.event_date}>
+                  <TableCell>{task.event_id+'_'+task.event_date}</TableCell>
                   <TableCell>{task.event_date}</TableCell>
                   <TableCell>
-                      <Button color="primary">
+                      <Button color="primary" onClick={() => viewTask(task.event_id, task.event_date)}>
                         View Details
                       </Button>
                     </TableCell>
