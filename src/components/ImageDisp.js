@@ -46,7 +46,7 @@ export default function ImageDisplay(props) {
       {imageData.map((item) => (
         <ImageListItem key={item}>
           <img
-            src= {process.env.PUBLIC_URL + 'images/20220605/' + item} 
+            src= {process.env.PUBLIC_URL + './images_files/'+ {eventDate} +'/'+ item} 
             alt={item.id}
             loading="lazy"
           />
