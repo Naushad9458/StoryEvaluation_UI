@@ -24,7 +24,7 @@ const Navbar = (props) => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Lifelog Narrative Evaluation
+            Lifelog Narrative Evaluation - Test
           </Typography>
 
           <Button color="inherit" onClick={props.handleLogout}>Logout</Button>
