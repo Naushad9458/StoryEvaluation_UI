@@ -54,12 +54,12 @@ export default function ImageDisplay(props) {
         <ImageListItem key={item.image}>
           <img
             //Add the image path here new
-            src={`/images_files/${eventDate}/${eventDate}/${item.image}`}
-            alt={`/images_files/${eventDate}/${eventDate}/${item.image}`}
+            //src={`/images_files/${eventDate}/${eventDate}/${item.image}`}
+            //alt={`/images_files/${eventDate}/${eventDate}/${item.image}`}
             //src={`${process.env.PUBLIC_URL}/images_files/${eventDate}/${eventDate}/${item.image}`}
             //alt={`${process.env.PUBLIC_URL}/images_files/${eventDate}/${eventDate}/${item.image}`}
-            //src= {process.env.PUBLIC_URL + '/images_files/' + eventDate + '/' + eventDate + '/'+ item.image} 
-            //alt={process.env.PUBLIC_URL + '/images_files/' + eventDate + '/' + eventDate + '/'+ item.image}
+            src= {process.env.PUBLIC_URL + '/images_files/' + eventDate + '/' + eventDate + '/'+ item.image} 
+            alt={process.env.PUBLIC_URL + '/images_files/' + eventDate + '/' + eventDate + '/'+ item.image}
             //src= {process.env.PUBLIC_URL + '/' + eventDate + '/' + eventDate + '/'+ item.image} 
             //alt={process.env.PUBLIC_URL + '/' + eventDate + '/' + eventDate + '/'+ item.image}
             loading="lazy"
