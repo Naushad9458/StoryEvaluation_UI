@@ -69,7 +69,7 @@ export default function ImageDisplay(props) {
       ))}
     </ImageList>
 
-    <img src={process.env.PUBLIC_URL + '/logo192.png'} alt={process.env.PUBLIC_URL + '/logo192.png'} />      
+    <img src={process.env.PUBLIC_URL + '/20220605_001904_000.jpg'} alt={process.env.PUBLIC_URL + '/20220605_001904_000.jpg'} />      
     </div>
   );
 }
