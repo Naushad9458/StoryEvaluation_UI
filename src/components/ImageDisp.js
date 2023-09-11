@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useEffect } from 'react';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
-import Image from '@mui/material/Image';
+
 import { useLocation } from 'react-router-dom';
 
 export default function ImageDisplay(props) {
