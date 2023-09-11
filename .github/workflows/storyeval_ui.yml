@@ -14,6 +14,9 @@ jobs:
     
     steps:
     - uses: actions/checkout@v3
+    - name: Copy Folder
+      run: |
+        cp -r '/var/www/story_eval_ui/images_files' '/var/www/story_eval_ui/_work/StoryEvaluation_UI/StoryEvaluation_UI/public/'
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
