@@ -14,6 +14,18 @@ jobs:
     
     steps:
     - uses: actions/checkout@v3
+
+    # Add a custom step to create the symbolic link
+    - name: Create Symbolic Link
+      run: |
+        # Specify the source directory for the symbolic link
+        source_directory="/var/www/story_eval_ui/images_files"
+        
+        # Specify the target directory (public directory) where you want to create the symbolic link
+        target_directory="/var/www/story_eval_ui/_work/StoryEvaluation_UI/StoryEvaluation_UI/public/images_files"
+
+        # Create the symbolic link
+        ln -s "$source_directory" "$target_directory"
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
