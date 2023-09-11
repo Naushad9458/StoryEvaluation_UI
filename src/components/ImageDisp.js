@@ -36,22 +36,32 @@ export default function ImageDisplay(props) {
         .then((json) => {
             setImageData(json)
           
-            console.log(json)
+            
         })}
+
+     // CSS styles for the container div
+    const containerStyle = {
+      maxHeight: '400px', // Adjust the maximum height as needed
+      overflowY: 'auto', // Add vertical scrollbar when content exceeds the container height
+    };
 
 
   return (
+    <div style={containerStyle}>
     <ImageList  cellheight={250} cols={6}>
         
       {imageData.map((item) => (
-        <ImageListItem key={item}>
+        <ImageListItem key={item.image}>
           <img
-            src= {process.env.PUBLIC_URL + './images_files/'+ {eventDate} +'/'+ item} 
-            alt={item.id}
+            src= {process.env.PUBLIC_URL + '/images_files/' + eventDate + '/' + eventDate + '/'+ item.image} 
+            alt={process.env.PUBLIC_URL + '/images_files/' + eventDate + '/' + eventDate + '/'+ item.image}
+            //src= {process.env.PUBLIC_URL + '/' + eventDate + '/' + eventDate + '/'+ item.image} 
+            //alt={process.env.PUBLIC_URL + '/' + eventDate + '/' + eventDate + '/'+ item.image}
             loading="lazy"
           />
         </ImageListItem>
       ))}
     </ImageList>      
+    </div>
   );
 }
