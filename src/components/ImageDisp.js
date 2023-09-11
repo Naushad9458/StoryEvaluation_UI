@@ -53,7 +53,7 @@ export default function ImageDisplay(props) {
       {imageData.map((item) => (
         <ImageListItem key={item.image}>
           <img
-            //Add the image path here
+            //Add the image path here new
             src={`/images_files/${eventDate}/${eventDate}/${item.image}`}
             alt={`/images_files/${eventDate}/${eventDate}/${item.image}`}
             //src={`${process.env.PUBLIC_URL}/images_files/${eventDate}/${eventDate}/${item.image}`}
