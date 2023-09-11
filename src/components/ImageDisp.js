@@ -58,8 +58,8 @@ export default function ImageDisplay(props) {
             //alt={`/images_files/${eventDate}/${eventDate}/${item.image}`}
             //src={`${process.env.PUBLIC_URL}/images_files/${eventDate}/${eventDate}/${item.image}`}
             //alt={`${process.env.PUBLIC_URL}/images_files/${eventDate}/${eventDate}/${item.image}`}
-            src= {process.env.PUBLIC_URL + './images_files/' + eventDate + '/' + eventDate + '/'+ item.image} 
-            alt={process.env.PUBLIC_URL + './images_files/' + eventDate + '/' + eventDate + '/'+ item.image}
+            src= {process.env.PUBLIC_URL + 'images_files/' + eventDate + '/' + eventDate + '/'+ item.image} 
+            alt={process.env.PUBLIC_URL + 'images_files/' + eventDate + '/' + eventDate + '/'+ item.image}
             //src= {process.env.PUBLIC_URL + '/' + eventDate + '/' + eventDate + '/'+ item.image} 
             //alt={process.env.PUBLIC_URL + '/' + eventDate + '/' + eventDate + '/'+ item.image}
             loading="lazy"
