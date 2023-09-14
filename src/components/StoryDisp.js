@@ -166,7 +166,7 @@ const StoryDisp = (props) => {
       
     /> 
   </Box>
-  <Questions activeStep={activeStep} eventDate={eventDate} eventID={eventID} editDistance={editDistance[activeStep]} editedStory={editDistance[activeStep] > 0 ? editedStories[activeStep] : ''}/>
+  <Questions activeStep={activeStep} eventDate={eventDate} eventID={eventID} editDistance={editDistance[activeStep]} editedStory={editDistance[activeStep] > 0 ? editedStories[activeStep] : 'No Edit'}/>
   </div>
   );
 };

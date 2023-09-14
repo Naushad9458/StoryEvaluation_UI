@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { Button, Paper } from '@mui/material';
 import { makeStyles } from '@material-ui/core/styles';
 import { fontSize } from '@mui/system';
+import SnackBar from './Snackbar';
 
 const useStyles = makeStyles((theme) => ({
 
@@ -45,6 +46,10 @@ function Questions(props) {
     const {eventID} = props;
     const {editDistance} = props;
     const {editedStory} = props;
+
+    const [showToast, setShowToast] = useState(false);
+    const [submissionMessage, setSubmissionMessage] = useState('');
+    const [submitButtonDisable, setSubmitButtonDisable] = useState(false);
     
 
     const [sliderValues, setSliderValues] = useState({
@@ -70,7 +75,7 @@ function Questions(props) {
         .then((json) => {
             setQuestions(json)
             console.log(json)
-        })}
+    })}
 
     const handleOnChange = (e) => {
         //sliderStates[props.sysID]['name'] = e.target.name
@@ -84,6 +89,10 @@ function Questions(props) {
           });
 
     }
+
+    const handleSnackBarClose = () => {
+      setShowToast(false);
+    };
 
     const submitResponse = () => {
 
@@ -103,18 +112,30 @@ function Questions(props) {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-        }
+        },
+        body: JSON.stringify(requestData)
     })
     .then((res) => res.json())
     .then((json) => {
-        console.log(json)
+        if(json['status']==='Success'){
+          setSubmissionMessage('Response Submitted Successfully')
+          setSubmitButtonDisable(true)
+          setShowToast(true)
+        }
+        else{
+          setSubmissionMessage('Response Submission Failed')
+          setShowToast(true)
+        }
     })}
+
+
     
     
 
 
   return (
     <div>
+    <SnackBar open={showToast} close={handleSnackBarClose} message={submissionMessage}></SnackBar>
     {questions.map((tile) => (
       <div key={tile.question_id}>
         <Box>
@@ -136,7 +157,7 @@ function Questions(props) {
         </Box>
       </div>
     ))}
-    <Button variant='contained' fullWidth='true' onClick={submitResponse} >Submit</Button>
+    <Button variant='contained' fullWidth='true' onClick={submitResponse} disabled={submitButtonDisable} >Submit</Button>
   </div>
 
 );

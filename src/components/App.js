@@ -13,6 +13,7 @@ function App() {
   return (
     <Router>
       <Routes>
+        
         <Route path="/" element={<Login isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />} />
         <Route path="/home" element={<Home isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated}/>} />
         <Route path="/adduser" element={<RegisterUser />} />
