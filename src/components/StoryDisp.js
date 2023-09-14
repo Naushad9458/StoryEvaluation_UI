@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useTheme } from '@mui/material/styles';
 import SwipeableViews from 'react-swipeable-views';
 import Box from '@mui/material/Box';
@@ -13,37 +13,8 @@ import Questions from './Questions';
 
 const StoryDisp = (props) => {
     const theme = useTheme();
-
-    var ed = require('edit-distance');
-
-    const insert = function(node) { return 1; };
-    const remove = function(node) { return 1; };
-    const update = function(stringA, stringB) { return stringA !== stringB ? 1 : 0; };
-
-
     const [activeStep, setActiveStep] = React.useState(0);
     const [editDisabled, setEditDisabled] = React.useState(true);
-    const [stories, setStories] = React.useState([])
-    const [editedStories, setEditedStories] = React.useState([])
-    const [editDistance, setEditDistance] = React.useState([0,0,0])
-
-    useEffect(() => {
-
-      console.log(editDisabled, 'editDisabled')
-
-      setStories([
-        "This is 1",
-        "This is 2",
-        "This is 3"
-    ])
-
-    setEditedStories([
-      "This is 1",
-      "This is 2",
-      "This is 3"
-    ])
-
-    },[]);
 
     const {eventDate} = props;
     const {eventID} = props;
@@ -57,42 +28,19 @@ const StoryDisp = (props) => {
     };
     const maxSteps = 3;
 
-    const story_modify = (event) => {
-        console.log(event.target.value)
-
-        let stories_copy = [...editedStories]
-        let item = [...stories_copy[activeStep]]
-        item = event.target.value
-        stories_copy[activeStep] = item
-        setEditedStories(stories_copy)
-        
-        
-        
-    }
-
     const editStoryHandle = () => {
-        
         console.log('edit story click!')
-        setEditDisabled(false);
-        console.log(editDisabled, 'edit story click')
-      };
+        setEditDisabled(false);};
     
     const confirmEditStory = () => {
-        console.log(stories[activeStep], 'Edit Confirmed')
-        var lev = ed.levenshtein(stories[activeStep], editedStories[activeStep] , insert, remove, update);
-        console.log(lev.distance, 'Edit Confirmed')
+        console.log('Edit Confirmed')
+        setEditDisabled(true);};
 
-        let editDistance_copy = [...editDistance]
-        
-        
-        editDistance_copy[activeStep] = lev.distance
-        
-        setEditDistance(editDistance_copy)
-        setEditDisabled(true);
-        console.log(editDisabled, 'confirm edit story click')
-    };
-
-    
+    const stories =[
+        "This is 1",
+        "This is 2",
+        "This is 3"
+    ]
   
 
     return (
@@ -122,11 +70,7 @@ const StoryDisp = (props) => {
     disabled={editDisabled}
     multiline
     rows={6}
-    onChange={story_modify}
-    value={editedStories[activeStep]}></TextField>
-
-    
-
+    value={stories[activeStep]}></TextField>
 
     
     
@@ -165,8 +109,7 @@ const StoryDisp = (props) => {
       
     /> 
   </Box>
-  <Questions activeStep={activeStep} eventDate={eventDate} eventID={eventID} editDistance={editDistance[activeStep]} editedStory={editDistance[activeStep] > 0 ? editedStories[activeStep] : ''}/>
-  
+  <Questions activeStep={activeStep}/>
   </div>
   );
 };
