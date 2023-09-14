@@ -10,6 +10,7 @@ import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import TextField from '@mui/material/TextField';
 import Questions from './Questions';
+import AlertDialog from './AlertDialog';
 
 const StoryDisp = (props) => {
     const theme = useTheme();
@@ -21,6 +22,7 @@ const StoryDisp = (props) => {
     const update = function(stringA, stringB) { return stringA !== stringB ? 1 : 0; };
 
     const [activeStep, setActiveStep] = React.useState(0);
+    const [alertOpen, setAlertOpen] = React.useState(false);
     const [editDisabled, setEditDisabled] = React.useState(true);
     const [stories, setStories] = React.useState([])
     const [editedStories, setEditedStories] = React.useState([])
@@ -70,27 +72,35 @@ const StoryDisp = (props) => {
         console.log('edit story click!')
         setEditDisabled(false);
     };
-    
-    const confirmEditStory = () => {
-      console.log(stories[activeStep], 'Edit Confirmed')
+
+    const alerthandleClickOpen = () => {
       var lev = ed.levenshtein(stories[activeStep], editedStories[activeStep] , insert, remove, update);
-      console.log(lev.distance, 'Edit Confirmed')
+      setEditDistance(lev.distance)
+      setAlertOpen(true);
+    };
 
-      let editDistance_copy = [...editDistance]
+    const alerthandleClose = () => {
+      setAlertOpen(false);
+
+      let editedStories_copy = [...editedStories]
       
       
-      editDistance_copy[activeStep] = lev.distance
+      editedStories_copy[activeStep] = editedStories[activeStep]
       
-      setEditDistance(editDistance_copy)
+      setEditedStories(editedStories_copy)
       setEditDisabled(true);
+      console.log(editedStories[activeStep], 'confirm edit story click')
       console.log(editDisabled, 'confirm edit story click')
-      };
 
+    };
+    
+    
     
   
 
     return (
       <div>
+        <AlertDialog open={alertOpen} handleClose={alerthandleClose} handleClickOpen={alerthandleClickOpen} editDistance={editDistance}/>
         <Box sx={{  flexGrow: 1 }}>
         <Paper
         square
@@ -122,7 +132,7 @@ const StoryDisp = (props) => {
     
     
     <Button onClick={editStoryHandle}>Edit Story</Button>
-    <Button onClick={confirmEditStory}>Confirm Edit</Button>
+    <Button onClick={alerthandleClickOpen}>Confirm Edit</Button>
     
     <MobileStepper
       variant="text"
