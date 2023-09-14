@@ -40,6 +40,12 @@ function Questions(props) {
 
     const classes = useStyles();
     const [questions, setQuestions] = useState([])
+
+    const {eventDate} = props;
+    const {eventID} = props;
+    const {editDistance} = props;
+    const {editedStory} = props;
+    
     
 
     const [sliderValues, setSliderValues] = useState({
@@ -83,13 +89,27 @@ function Questions(props) {
     const submitResponse = () => {
 
         const requestData = {
+            event_id: eventID,
+            event_date: eventDate,
+            editDistance: editDistance,
+            editedStory: editedStory,
             system_id: activeStep+1,
             slider1: sliderValues[1],
             slider2: sliderValues[2],
             slider3: sliderValues[3],
           };
         console.log(requestData)
-    }
+
+        fetch("https://4b97-136-206-48-13.ngrok-free.app/submit_response",{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        .then((res) => res.json())
+        .then((json) => {
+            console.log(json)
+    })}
     
     
 
