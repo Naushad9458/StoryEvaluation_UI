@@ -131,7 +131,7 @@ const StoryDisp = (props) => {
 
     
     
-    <Button onClick={editStoryHandle}>Edit Story</Button>
+    <Button onClick={editStoryHandle}>Edit Narrative</Button>
     <Button onClick={alerthandleClickOpen}>Confirm Edit</Button>
     
     <MobileStepper

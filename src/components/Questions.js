@@ -49,7 +49,8 @@ function Questions(props) {
 
     const [showToast, setShowToast] = useState(false);
     const [submissionMessage, setSubmissionMessage] = useState('');
-    const [submitButtonDisable, setSubmitButtonDisable] = useState(false);
+    //const [submitButtonDisable, setSubmitButtonDisable] = useState(false);
+    const [submitButtonDisabled, setSubmitButtonDisable] = useState([false, false, false]);
     
 
     const [sliderValues, setSliderValues] = useState({
@@ -62,7 +63,37 @@ function Questions(props) {
 
     useEffect(() => {
         fetchQuestions();
+        check_submitted_responses();
       }, []);
+
+
+    const check_submitted_responses = () => {
+      console.log('check_submitted_responses')
+      fetch("https://4b97-136-206-48-13.ngrok-free.app/check_submitted_response",{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({eventID: eventID, eventDate: eventDate})
+        })
+        .then((res) => res.json())
+        .then((json) => {
+
+          if (Array.isArray(json['response'])) {
+            console.log('Array')
+            let submitButtonDisabled_copy = [...submitButtonDisabled]
+
+            json['response'].forEach((item) => {
+            submitButtonDisabled_copy[item-1] = true
+          });
+          setSubmitButtonDisable(submitButtonDisabled_copy)
+          }
+          else{
+            console.log('Not Array')
+          }
+            
+    })}
+    
 
     const fetchQuestions = () => {
         fetch("https://4b97-136-206-48-13.ngrok-free.app/fetch_questions",{
@@ -119,7 +150,10 @@ function Questions(props) {
     .then((json) => {
         if(json['status']==='Success'){
           setSubmissionMessage('Response Submitted Successfully')
-          setSubmitButtonDisable(true)
+
+          let submitButtonDisabled_copy = [...submitButtonDisabled]
+          submitButtonDisabled_copy[activeStep] = true
+          setSubmitButtonDisable(submitButtonDisabled_copy)
           setShowToast(true)
         }
         else{
@@ -157,7 +191,7 @@ function Questions(props) {
         </Box>
       </div>
     ))}
-    <Button variant='contained' fullWidth='true' onClick={submitResponse} disabled={submitButtonDisable} >Submit</Button>
+    <Button variant='contained' fullWidth='true' onClick={submitResponse} disabled={submitButtonDisabled[activeStep]}>Submit</Button>
   </div>
 
 );
