@@ -62,14 +62,15 @@ export default function Login({isAuthenticated, setIsAuthenticated}) {
       body: JSON.stringify({ "username": event.currentTarget.username.value, "password": event.currentTarget.password.value}),
     });
 
-    const body = await response.text();
-    if(body==='True'){
+    const body = await response.json();
+    if(body!=='False' || body!=='Invalid Request'){
       console.log('Logged in')
       setIsAuthenticated(true);
+      setUser(body['username']);
+      console.log(user, 'user' )
       console.log(isAuthenticated)
       navigate('/home');
     }
-    console.log(body);    
   };
 
   if (isAuthenticated) {
