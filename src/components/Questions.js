@@ -136,6 +136,7 @@ function Questions(props) {
         slider1: sliderValues[1],
         slider2: sliderValues[2],
         slider3: sliderValues[3],
+        user: props.user
       };
     console.log(requestData)
 
