@@ -20,35 +20,30 @@ import { useNavigate, Navigate} from 'react-router-dom';
 const theme = createTheme();
 
 
-export default function Login({isAuthenticated, setIsAuthenticated}) {
+export default function Login(props) {
 
   const navigate = useNavigate();
   
-  const [user, setUser] = useState(null);
-
-
-
-
-  useEffect(() => {
-    // Make an API call when the component mounts
-    fetch('https://4b97-136-206-48-13.ngrok-free.app/check_user', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log('Success:', data);
-        setUser(data);
-        
-      })
-      .catch((error) => {
-        console.error('Error fetching data: ', error);
-        
-      });
-  }, []);
+  //useEffect(() => {
+  //  // Make an API call when the component mounts
+  //  fetch('https://4b97-136-206-48-13.ngrok-free.app/check_user', {
+  //    method: 'POST',
+  //    headers: {
+  //      'Content-Type': 'application/json',
+  //    },
+  //    
+  //  })
+  //    .then((response) => response.json())
+  //    .then((data) => {
+  //      console.log('Success:', data);
+  //      setUser(data);
+  //      
+  //    })
+  //    .catch((error) => {
+  //      console.error('Error fetching data: ', error);
+  //      
+  //    });
+  //}, []);
   
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -64,16 +59,18 @@ export default function Login({isAuthenticated, setIsAuthenticated}) {
 
     const body = await response.json();
     if(body!=='False' || body!=='Invalid Request'){
-      console.log('Logged in')
-      setIsAuthenticated(true);
-      setUser(body['username']);
-      console.log(user, 'user' )
-      console.log(isAuthenticated)
-      navigate('/home');
+      if (props.setIsAuthenticated) {
+        props.setIsAuthenticated(true);
+      }
+
+      if (props.setUser) {
+        props.setUser(body['username']);
+      }
+      navigate('/home', { state: { user: body['username']}});
     }
   };
 
-  if (isAuthenticated) {
+  if (props.isAuthenticated) {
     return <Navigate to="/home" />;
   }
 

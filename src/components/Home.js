@@ -11,10 +11,9 @@ import {
   TableRow,
   Paper,
   Button,
-  nativeSelectClasses
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import { useNavigate ,Navigate } from 'react-router-dom';
+import { useNavigate ,Navigate} from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   table: {
@@ -23,18 +22,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Home = ({isAuthenticated, setIsAuthenticated}) => {
+const Home = (props) => {
   // Sample data for pending and completed tasks
 
   const navigate = useNavigate();
+  
 
-  const [error, setError] = useState(null);
+  
+
+  //const [error, setError] = useState(null);
   const [tasks, setTasks] = useState([]);
 
-  const handleLogout = () => {
-    setIsAuthenticated(false);
-    navigate('/');
-  }
+  
 
   const viewTask = (event_id, event_date) => {
     console.log(event_date);
@@ -65,19 +64,24 @@ const Home = ({isAuthenticated, setIsAuthenticated}) => {
       });
   }, []);
 
+  const handleLogout = () => {
+    props.setIsAuthenticated(false);
+    navigate('/');
+  }
+
   
  
   
 
   const classes = useStyles();
 
-  if (!isAuthenticated) {
+  if (!props.isAuthenticated) {
     return <Navigate to="/" />;
   }
 
   return (
     <div>
-    <Navbar handleLogout={handleLogout}/>
+    <Navbar handleLogout={handleLogout} user={props.user}/>
     <Container>
 
 

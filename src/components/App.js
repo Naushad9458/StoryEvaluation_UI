@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useNavigate} from 'react-router-dom';
 import Login from './Login';
 import Home from './Home';
 import Admin from './Admin';
@@ -9,16 +9,21 @@ import { useState } from 'react';
 
 function App() {
 
+  
+
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [user, setUser] = useState('');
+
+  
   return (
     <Router>
       <Routes>
         
-        <Route path="/" element={<Login isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />} />
-        <Route path="/home" element={<Home isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated}/>} />
+        <Route path="/" element={<Login isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} user={user} setUser={setUser} />} />
+        <Route path="/home" element={<Home isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} user={user} setUser={setUser}/>} />
         <Route path="/adduser" element={<RegisterUser />} />
         <Route path="/admin" element={<Admin />} />
-        <Route path="/eval/:eventDate/:eventID" element={<Eval />} />
+        <Route path="/eval/:eventDate/:eventID" element={<Eval isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} user={user} setUser={setUser}/>} />
         {/* Other routes */}
       </Routes>
     </Router>
