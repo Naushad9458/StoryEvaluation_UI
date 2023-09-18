@@ -14,6 +14,7 @@ import {
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { useNavigate ,Navigate} from 'react-router-dom';
+import Chip from '@mui/material/Chip';
 
 const useStyles = makeStyles((theme) => ({
   table: {
@@ -69,6 +70,19 @@ const Home = (props) => {
     navigate('/');
   }
 
+  const getColor = (status) => {
+    switch (status) {
+      case 'Unattempted':
+        return 'error'; 
+      case 'Partially Completed':
+        return 'warning'; 
+      case 'Completed':
+        return 'success'; 
+      default:
+        return 'default'; 
+    }
+  }
+
   
  
   
@@ -93,8 +107,9 @@ const Home = (props) => {
           <TableHead>
             <TableRow>
               
-              <TableCell>Task ID</TableCell>
-              <TableCell>Event Date</TableCell>
+              <TableCell><b>Task ID</b></TableCell>
+              <TableCell><b>Event Date</b></TableCell>
+              <TableCell><b>Status</b></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -103,9 +118,13 @@ const Home = (props) => {
                 <TableRow key={task.event_id+'_'+task.event_date}>
                   <TableCell>{task.event_id+'_'+task.event_date}</TableCell>
                   <TableCell>{task.event_date}</TableCell>
+                  <TableCell><Chip 
+                  label={task.status} 
+                  color={getColor(task.status)} />
+                  </TableCell>
                   <TableCell>
                       <Button color="primary" onClick={() => viewTask(task.event_id, task.event_date)}>
-                        View Details
+                        View Task
                       </Button>
                     </TableCell>
                 </TableRow>
