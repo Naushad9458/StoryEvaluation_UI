@@ -51,6 +51,7 @@ const Home = (props) => {
       headers: {
         'Content-Type': 'application/json',
       },
+      body: JSON.stringify({ "username": props.user}),
       
     })
       .then((response) => response.json())

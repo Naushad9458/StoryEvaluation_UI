@@ -148,7 +148,7 @@ function Questions(props) {
         body: JSON.stringify(requestData)
     })
     .then((res) => res.json())
-    .then((json) => {
+    .then((json) => {     
         if(json['status']==='Success'){
           setSubmissionMessage('Response Submitted Successfully')
 
