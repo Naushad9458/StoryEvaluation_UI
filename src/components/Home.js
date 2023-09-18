@@ -68,6 +68,7 @@ const Home = (props) => {
 
   const handleLogout = () => {
     props.setIsAuthenticated(false);
+    localStorage.removeItem('user');
     navigate('/');
   }
 

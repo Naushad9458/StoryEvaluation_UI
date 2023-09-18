@@ -65,6 +65,7 @@ export default function Login(props) {
 
       if (props.setUser) {
         props.setUser(body['username']);
+        localStorage.setItem('user', body['username']);
       }
       navigate('/home', { state: { user: body['username']}});
     }

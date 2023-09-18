@@ -19,6 +19,7 @@ export default function Eval(props) {
 
     const handleLogout = () => {
         setIsAuthenticated(false);
+        localStorage.removeItem('user');
         navigate('/');
     }
 

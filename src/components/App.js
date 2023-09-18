@@ -9,10 +9,14 @@ import { useState } from 'react';
 
 function App() {
 
+
+  const storedUser = localStorage.getItem('user');
+  const initialUser = storedUser ? storedUser : '';
+
   
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [user, setUser] = useState('');
+  const [user, setUser] = useState(initialUser);
 
   
   return (
