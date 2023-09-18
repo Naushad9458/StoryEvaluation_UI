@@ -116,6 +116,7 @@ const Home = (props) => {
           </TableHead>
           <TableBody>
             {tasks
+              .filter(task => task.status === 'Unattempted' || task.status === 'Partially Completed')
               .map((task) => (
                 <TableRow key={task.event_id+'_'+task.event_date}>
                   <TableCell>{task.event_id+'_'+task.event_date}</TableCell>
@@ -129,6 +130,41 @@ const Home = (props) => {
                         View Task
                       </Button>
                     </TableCell>
+                </TableRow>
+              ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+
+      <hr></hr>
+      <br></br>
+
+      <Typography variant="h6" component="h2" gutterBottom>
+        Completed Tasks
+      </Typography>
+
+      <TableContainer component={Paper} className={classes.table}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              
+              <TableCell><b>Task ID</b></TableCell>
+              <TableCell><b>Event Date</b></TableCell>
+              <TableCell><b>Status</b></TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {tasks
+              .filter(task => task.status === 'Completed')
+              .map((task) => (
+                <TableRow key={task.event_id+'_'+task.event_date}>
+                  <TableCell>{task.event_id+'_'+task.event_date}</TableCell>
+                  <TableCell>{task.event_date}</TableCell>
+                  <TableCell><Chip 
+                  label={task.status} 
+                  color={getColor(task.status)} />
+                  </TableCell>
+                  
                 </TableRow>
               ))}
           </TableBody>
