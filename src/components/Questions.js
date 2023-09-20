@@ -46,6 +46,7 @@ function Questions(props) {
     const {eventID} = props;
     const {editDistance} = props;
     const {editedStory} = props;
+    const {displayOrder} = props;
 
     const [showToast, setShowToast] = useState(false);
     const [submissionMessage, setSubmissionMessage] = useState('');
@@ -62,14 +63,19 @@ function Questions(props) {
     const { activeStep } = props;
 
     useEffect(() => {
+        
+        
+        
         fetchQuestions();
-        check_submitted_responses();
-      }, []);
+
+        check_submitted_responses()
+
+      }, [displayOrder]);
 
 
-    const check_submitted_responses = () => {
+    const check_submitted_responses = async () =>  {
       console.log('check_submitted_responses')
-      fetch("https://4b97-136-206-48-13.ngrok-free.app/check_submitted_response",{
+      await fetch("https://4b97-136-206-48-13.ngrok-free.app/check_submitted_response",{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -79,14 +85,22 @@ function Questions(props) {
         .then((res) => res.json())
         .then((json) => {
 
+          console.log(json['response'])
+
           if (Array.isArray(json['response'])) {
             console.log('Array')
             let submitButtonDisabled_copy = [...submitButtonDisabled]
 
+            console.log(displayOrder, 'displayOrder')
+
             json['response'].forEach((item) => {
-            submitButtonDisabled_copy[item-1] = true
-          });
-          setSubmitButtonDisable(submitButtonDisabled_copy)
+            let idx = Object.values(displayOrder).indexOf(item)
+            console.log(idx, 'idx')
+            if(idx> -1){
+            submitButtonDisabled_copy[idx] = true}
+            });
+            setSubmitButtonDisable(submitButtonDisabled_copy)
+            console.log(submitButtonDisabled, 'submitButtonDisabled')
           }
           else{
             console.log('Not Array')
@@ -132,7 +146,7 @@ function Questions(props) {
         event_date: eventDate,
         editDistance: editDistance,
         editedStory: editedStory,
-        system_id: activeStep+1,
+        system_name: displayOrder[activeStep],
         slider1: sliderValues[1],
         slider2: sliderValues[2],
         slider3: sliderValues[3],
@@ -153,8 +167,11 @@ function Questions(props) {
           setSubmissionMessage('Response Submitted Successfully')
 
           let submitButtonDisabled_copy = [...submitButtonDisabled]
-          submitButtonDisabled_copy[activeStep] = true
+          //submitButtonDisabled_copy.append(requestData.system_name)
+          console.log(displayOrder, 'displayOrder')
+          submitButtonDisabled_copy[Object.values(displayOrder).indexOf(requestData.system_name)] = true
           setSubmitButtonDisable(submitButtonDisabled_copy)
+          //console.log(submitButtonDisabled, 'submitButtonDisabled - on submit')
           setShowToast(true)
         }
         else{

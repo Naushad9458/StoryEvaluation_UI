@@ -163,7 +163,7 @@ const Home = (props) => {
                   <TableCell><Chip 
                   label={task.status} 
                   color={getColor(task.status)} />
-                  </TableCell>
+                </TableCell>
                   
                 </TableRow>
               ))}

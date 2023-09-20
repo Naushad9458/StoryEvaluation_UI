@@ -27,25 +27,56 @@ const StoryDisp = (props) => {
     const [stories, setStories] = React.useState([])
     const [editedStories, setEditedStories] = React.useState([])
     const [editDistance, setEditDistance] = React.useState([0,0,0])
+    const [displayOrder, setDisplayOrder] = React.useState({})
 
 
     useEffect(() => {
 
-      console.log(editDisabled, 'editDisabled')
+      fetchStoryData()
 
-      setStories([
-        "This is 1",
-        "This is 2",
-        "This is 3"
-    ])
+      
 
-    setEditedStories([
-      "This is 1",
-      "This is 2",
-      "This is 3"
-    ])
+      //setStories([
+      //  "This is 1",
+      //  "This is 2",
+      //  "This is 3"
+      //])
+
+      //setEditedStories([
+      //"This is 1",
+      //"This is 2",
+      //"This is 3"
+      //])
 
     },[]);
+
+    const fetchStoryData = () => {
+      fetch("https://4b97-136-206-48-13.ngrok-free.app/fetch_stories", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({eventID: eventID, eventDate: eventDate})
+        
+      })
+      .then((res) => res.json())
+      .then((json) => {
+          //console.log(json[0])
+          //console.log(Object.keys(json[0]).length)
+          //console.log(Object.keys(json[0])[0])
+
+          const keys = Object.keys(json[0]);
+          const dict_temp = {}
+          for (let i = 0; i < keys.length; i++) {
+            dict_temp[i] = keys[i]
+          }
+          setDisplayOrder(dict_temp)
+          setStories(json[0])
+          setEditedStories(json[0])
+          
+          
+          
+      })}
 
     const {eventDate} = props;
     const {eventID} = props;
@@ -127,7 +158,7 @@ const StoryDisp = (props) => {
     multiline
     rows={6}
     onChange={story_modify}
-    value={editedStories[activeStep]}></TextField>
+    value={editedStories[displayOrder[activeStep]]}></TextField>
 
     
     
@@ -166,7 +197,7 @@ const StoryDisp = (props) => {
       
     /> 
   </Box>
-  <Questions activeStep={activeStep} eventDate={eventDate} user={props.user} eventID={eventID} editDistance={editDistance[activeStep]} editedStory={editDistance[activeStep] > 0 ? editedStories[activeStep] : 'No Edit'}/>
+  <Questions activeStep={activeStep} displayOrder={displayOrder} eventDate={eventDate} user={props.user} eventID={eventID} editDistance={editDistance[activeStep]} editedStory={editDistance[activeStep] > 0 ? editedStories[activeStep] : 'No Edit'}/>
   </div>
   );
 };
