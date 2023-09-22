@@ -67,9 +67,22 @@ const StoryDisp = (props) => {
 
           const keys = Object.keys(json[0]);
           const dict_temp = {}
+
+          const originalArray = new Array(keys.length)
+
           for (let i = 0; i < keys.length; i++) {
-            dict_temp[i] = keys[i]
+            originalArray[i] = i
           }
+
+          const randomizedArray = shuffleArray([...originalArray]);
+
+          //console.log(originalArray,'originalArray')
+          //console.log(randomizedArray,'randomizedArray')
+
+          for (let i = 0; i < keys.length; i++) {
+            dict_temp[i] = keys[randomizedArray[i]]
+          }
+          console.log(dict_temp)
           setDisplayOrder(dict_temp)
           setStories(json[0])
           setEditedStories(json[0])
@@ -77,6 +90,18 @@ const StoryDisp = (props) => {
           
           
       })}
+
+    
+      function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+          // Generate a random index between 0 and i (inclusive)
+          const j = Math.floor(Math.random() * (i + 1));
+      
+          // Swap array[i] and array[j]
+          [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+      }
 
     const {eventDate} = props;
     const {eventID} = props;
@@ -160,7 +185,12 @@ const StoryDisp = (props) => {
     multiline
     rows={6}
     onChange={story_modify}
-    value={editedStories[displayOrder[activeStep]]}></TextField>
+    value={editedStories[displayOrder[activeStep]]}>
+
+    
+    
+
+    </TextField>
 
     
     
