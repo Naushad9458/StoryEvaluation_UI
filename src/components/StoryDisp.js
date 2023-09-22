@@ -82,10 +82,13 @@ const StoryDisp = (props) => {
           for (let i = 0; i < keys.length; i++) {
             dict_temp[i] = keys[randomizedArray[i]]
           }
-          console.log(dict_temp)
+          //console.log(dict_temp)
           setDisplayOrder(dict_temp)
           setStories(json[0])
           setEditedStories(json[0])
+
+          console.log('split')
+          //console.log(editedStories[displayOrder[activeStep]].split('.').map((line, index) => ( <p key={index}>{line}</p>)))
           
           
           
@@ -171,7 +174,7 @@ const StoryDisp = (props) => {
         bgcolor: 'background.default',
       }}
     >
-    <Typography>{activeStep+1}</Typography>
+    
     </Paper>
 
 
@@ -183,10 +186,13 @@ const StoryDisp = (props) => {
     fullWidth
     disabled={editDisabled}
     multiline
-    rows={6}
+    rows={12}
     onChange={story_modify}
-    value={editedStories[displayOrder[activeStep]]}>
-
+    value={editedStories[displayOrder[activeStep]]}
+    InputProps={{ style: { fontSize: 18 } }}
+    //value={editedStories[displayOrder[activeStep]].split('.').map((line, index) => ( <p key={index}>{line['props']}</p>))}
+    >
+    
     
     
 

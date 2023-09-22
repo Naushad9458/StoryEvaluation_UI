@@ -191,7 +191,7 @@ function Questions(props) {
     {questions.map((tile) => (
       <div key={tile.question_id}>
         <Box>
-          <p key={tile.ques_id} className={classes.QuestionText}>
+          <p key={tile.ques_id} className={classes.QuestionText} style={{ fontSize: '18px' }}>
             {tile.ques_text} 
           </p>
           <div className={classes.ResponseSider}>
