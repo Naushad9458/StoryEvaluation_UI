@@ -91,13 +91,17 @@ const StoryDisp = (props) => {
     const maxSteps = 3;
 
     const story_modify = (event) => {
-      console.log(event.target.value)
-
-      let stories_copy = [...editedStories]
-      let item = [...stories_copy[activeStep]]
-      item = event.target.value
-      stories_copy[activeStep] = item
-      setEditedStories(stories_copy)}
+      //console.log(event.target.value)
+      //console.log(editedStories)
+      //console.log(displayOrder[activeStep])
+      // Create a copy of editedStories
+      let editedStoriesCopy = { ...editedStories };
+      // Get the key/index to update based on displayOrder and activeStep
+      let keyToUpdate = displayOrder[activeStep];
+      // Update the value of the key with the new value from event.target.value
+      editedStoriesCopy[keyToUpdate] = event.target.value;
+      setEditedStories(editedStoriesCopy)
+    }
 
     const editStoryHandle = () => {
         console.log('edit story click!')
@@ -105,7 +109,7 @@ const StoryDisp = (props) => {
     };
 
     const alerthandleClickOpen = () => {
-      var lev = ed.levenshtein(stories[activeStep], editedStories[activeStep] , insert, remove, update);
+      var lev = ed.levenshtein(stories[displayOrder[activeStep]], editedStories[displayOrder[activeStep]] , insert, remove, update);
       setEditDistance(lev.distance)
       setAlertOpen(true);
     };
@@ -113,14 +117,12 @@ const StoryDisp = (props) => {
     const alerthandleClose = () => {
       setAlertOpen(false);
 
-      let editedStories_copy = [...editedStories]
-      
-      
-      editedStories_copy[activeStep] = editedStories[activeStep]
-      
-      setEditedStories(editedStories_copy)
+      let editedStoriesCopy = { ...editedStories };
+      let keyToUpdate = displayOrder[activeStep];
+      editedStoriesCopy[keyToUpdate] = editedStories[keyToUpdate]
+      setEditedStories(editedStoriesCopy)
       setEditDisabled(true);
-      console.log(editedStories[activeStep], 'confirm edit story click')
+      console.log(editedStories[displayOrder[activeStep]], 'confirm edit story click')
       console.log(editDisabled, 'confirm edit story click')
 
     };
