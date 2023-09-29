@@ -116,7 +116,7 @@ const StoryDisp = (props) => {
     const handleBack = () => {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
-    const maxSteps = 3;
+    const maxSteps = 4;
 
     const story_modify = (event) => {
       //console.log(event.target.value)
