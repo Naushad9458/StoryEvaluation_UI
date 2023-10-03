@@ -30,11 +30,8 @@ const Navbar = (props) => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Lifelog Narrative Evaluation 
           </Typography>
-
           <p>Logged in as: {props.user}</p>
-
           <Button color="inherit" onClick={props.handleLogout}>Logout</Button>
-          
         </Toolbar>
       </AppBar>
     </Box>

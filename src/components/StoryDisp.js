@@ -11,6 +11,7 @@ import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import TextField from '@mui/material/TextField';
 import Questions from './Questions';
 import AlertDialog from './AlertDialog';
+import AlertInstructions from './AlertInstructions';
 
 const StoryDisp = (props) => {
     const theme = useTheme();
@@ -23,6 +24,7 @@ const StoryDisp = (props) => {
 
     const [activeStep, setActiveStep] = React.useState(0);
     const [alertOpen, setAlertOpen] = React.useState(false);
+    const [alertOpenIntructions, setAlertOpenInstructions] = React.useState(false);
     const [editDisabled, setEditDisabled] = React.useState(true);
     const [stories, setStories] = React.useState([])
     const [editedStories, setEditedStories] = React.useState([])
@@ -33,6 +35,8 @@ const StoryDisp = (props) => {
     useEffect(() => {
 
       fetchStoryData()
+      setAlertOpenInstructions(true);
+      
 
       
 
@@ -154,6 +158,10 @@ const StoryDisp = (props) => {
       console.log(editDisabled, 'confirm edit story click')
 
     };
+
+    const InstructionshandleClose = () => {
+      setAlertOpenInstructions(false);
+    }
     
     
     
@@ -161,6 +169,7 @@ const StoryDisp = (props) => {
 
     return (
       <div>
+        <AlertInstructions open={alertOpenIntructions} handleClose={InstructionshandleClose}/>
         <AlertDialog open={alertOpen} handleClose={alerthandleClose} handleClickOpen={alerthandleClickOpen} editDistance={editDistance}/>
         <Box sx={{  flexGrow: 1 }}>
         <Paper
@@ -235,7 +244,7 @@ const StoryDisp = (props) => {
       
     /> 
   </Box>
-  <Questions activeStep={activeStep} displayOrder={displayOrder} eventDate={eventDate} user={props.user} eventID={eventID} editDistance={editDistance[activeStep]} editedStory={editDistance[activeStep] > 0 ? editedStories[activeStep] : 'No Edit'}/>
+  <Questions activeStep={activeStep} displayOrder={displayOrder} eventDate={eventDate} user={props.user} eventID={eventID} editDistance={editDistance[activeStep]} editedStory={editDistance[activeStep] > 0 ? editedStories[displayOrder[activeStep]] : 'No Edit'}/>
   </div>
   );
 };
