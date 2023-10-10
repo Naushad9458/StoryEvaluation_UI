@@ -30,8 +30,7 @@ export default function Eval(props) {
         <div>
             <Navbar handleLogout={handleLogout} user={props.user}/>
             <ImageDisplay eventID={eventID} eventDate={eventDate} user={user} setUser={setUser} isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated}/>
-            <StoryDisp eventID={eventID} eventDate={eventDate} user={user} setUser={setUser} isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated}/>
-            
+            <StoryDisp eventID={eventID} eventDate={eventDate} user={user} setUser={setUser} isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated}/>            
         </div>
     );
 

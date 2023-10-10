@@ -28,18 +28,13 @@ const StoryDisp = (props) => {
     const [editDisabled, setEditDisabled] = React.useState(true);
     const [stories, setStories] = React.useState([])
     const [editedStories, setEditedStories] = React.useState([])
-    const [editDistance, setEditDistance] = React.useState([0,0,0])
+    const [editDistance, setEditDistance] = React.useState([])
     const [displayOrder, setDisplayOrder] = React.useState({})
 
 
     useEffect(() => {
-
       fetchStoryData()
       setAlertOpenInstructions(true);
-      
-
-      
-
       //setStories([
       //  "This is 1",
       //  "This is 2",
@@ -142,13 +137,20 @@ const StoryDisp = (props) => {
 
     const alerthandleClickOpen = () => {
       var lev = ed.levenshtein(stories[displayOrder[activeStep]], editedStories[displayOrder[activeStep]] , insert, remove, update);
-      setEditDistance(lev.distance)
+      //setEditDistance(lev.distance)
+
+      let EditDistanceCopy = [ ...editDistance ];
+      let keyToUpdate = displayOrder[activeStep];
+      console.log(keyToUpdate, 'keyToUpdate')
+      console.log(lev.distance, 'lev.distance')
+      console.log(EditDistanceCopy)
+      EditDistanceCopy[keyToUpdate] = lev.distance
+      setEditDistance(EditDistanceCopy)
       setAlertOpen(true);
     };
 
     const alerthandleClose = () => {
       setAlertOpen(false);
-
       let editedStoriesCopy = { ...editedStories };
       let keyToUpdate = displayOrder[activeStep];
       editedStoriesCopy[keyToUpdate] = editedStories[keyToUpdate]
@@ -162,13 +164,10 @@ const StoryDisp = (props) => {
     const InstructionshandleClose = () => {
       setAlertOpenInstructions(false);
     }
-    
-    
-    
   
 
     return (
-      <div>
+      <div>  
         <AlertInstructions open={alertOpenIntructions} handleClose={InstructionshandleClose}/>
         <AlertDialog open={alertOpen} handleClose={alerthandleClose} handleClickOpen={alerthandleClickOpen} editDistance={editDistance}/>
         <Box sx={{  flexGrow: 1 }}>
@@ -244,7 +243,7 @@ const StoryDisp = (props) => {
       
     /> 
   </Box>
-  <Questions activeStep={activeStep} displayOrder={displayOrder} eventDate={eventDate} user={props.user} eventID={eventID} editDistance={editDistance[activeStep]} editedStory={editDistance[activeStep] > 0 ? editedStories[displayOrder[activeStep]] : 'No Edit'}/>
+  <Questions activeStep={activeStep} displayOrder={displayOrder} eventDate={eventDate} user={props.user} eventID={eventID} editDistance={editDistance[displayOrder[activeStep]]} editedStory={editDistance[displayOrder[activeStep]] > 0 ? editedStories[displayOrder[activeStep]] : 'No Edit'}/>
   </div>
   );
 };

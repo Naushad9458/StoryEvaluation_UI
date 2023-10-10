@@ -37,8 +37,8 @@ const Home = (props) => {
   
 
   const viewTask = (event_id, event_date) => {
-    console.log(event_date);
-    console.log(event_id);
+    //console.log(event_date);
+    //console.log(event_id);
     
     navigate(`/eval/${event_date}/${event_id}`);
     //navigate(`/eval`);
@@ -56,12 +56,12 @@ const Home = (props) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log('Success:', data);
+        //console.log('Success:', data);
         setTasks(data);
         
       })
       .catch((error) => {
-        console.error('Error fetching data: ', error);
+        //console.error('Error fetching data: ', error);
         
       });
   }, []);

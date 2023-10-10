@@ -5,14 +5,11 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
-
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-
 
 
 const Navbar = (props) => {
 
-  
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -30,6 +27,7 @@ const Navbar = (props) => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Lifelog Narrative Evaluation 
           </Typography>
+          
           <p>Logged in as: {props.user}</p>
           <Button color="inherit" onClick={props.handleLogout}>Logout</Button>
         </Toolbar>

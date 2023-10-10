@@ -10,5 +10,4 @@ const SnackBar = (props) => {
       </Snackbar>
     );
 }
-
 export default SnackBar;

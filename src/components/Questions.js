@@ -74,7 +74,7 @@ function Questions(props) {
 
 
     const check_submitted_responses = async () =>  {
-      console.log('check_submitted_responses')
+      //console.log('check_submitted_responses')
       await fetch("https://4b97-136-206-48-13.ngrok-free.app/check_submitted_response",{
             method: 'POST',
             headers: {
@@ -85,25 +85,25 @@ function Questions(props) {
         .then((res) => res.json())
         .then((json) => {
 
-          console.log(json['response'])
+          //console.log(json['response'])
 
           if (Array.isArray(json['response'])) {
-            console.log('Array')
+            //console.log('Array')
             let submitButtonDisabled_copy = [...submitButtonDisabled]
 
-            console.log(displayOrder, 'displayOrder')
+            //console.log(displayOrder, 'displayOrder')
 
             json['response'].forEach((item) => {
             let idx = Object.values(displayOrder).indexOf(item)
-            console.log(idx, 'idx')
+            //console.log(idx, 'idx')
             if(idx> -1){
             submitButtonDisabled_copy[idx] = true}
             });
             setSubmitButtonDisable(submitButtonDisabled_copy)
-            console.log(submitButtonDisabled, 'submitButtonDisabled')
+            //console.log(submitButtonDisabled, 'submitButtonDisabled')
           }
           else{
-            console.log('Not Array')
+            //console.log('Not Array')
           }
             
     })}
@@ -119,15 +119,15 @@ function Questions(props) {
         .then((res) => res.json())
         .then((json) => {
             setQuestions(json)
-            console.log(json)
+            //console.log(json)
     })}
 
     const handleOnChange = (e) => {
         //sliderStates[props.sysID]['name'] = e.target.name
         //sliderStates[props.sysID]['value'] = e.target.value
 
-        console.log(e.target.name)
-        console.log(e.target.value)
+        //console.log(e.target.name)
+        //console.log(e.target.value)
         setSliderValues({
             ...sliderValues,
             [e.target.name]: e.target.value,
@@ -152,7 +152,8 @@ function Questions(props) {
         slider3: sliderValues[3],
         user: props.user
       };
-    console.log(requestData)
+    //console.log('submitResponse')
+    //console.log(requestData)
 
     fetch("https://4b97-136-206-48-13.ngrok-free.app/submit_response",{
         method: 'POST',
@@ -168,7 +169,7 @@ function Questions(props) {
 
           let submitButtonDisabled_copy = [...submitButtonDisabled]
           //submitButtonDisabled_copy.append(requestData.system_name)
-          console.log(displayOrder, 'displayOrder')
+          //console.log(displayOrder, 'displayOrder')
           submitButtonDisabled_copy[Object.values(displayOrder).indexOf(requestData.system_name)] = true
           setSubmitButtonDisable(submitButtonDisabled_copy)
           //console.log(submitButtonDisabled, 'submitButtonDisabled - on submit')
