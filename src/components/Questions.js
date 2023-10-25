@@ -7,6 +7,7 @@ import { Button, Paper } from '@mui/material';
 import { makeStyles } from '@material-ui/core/styles';
 import { fontSize } from '@mui/system';
 import SnackBar from './Snackbar';
+import config from '../config.json';
 
 const useStyles = makeStyles((theme) => ({
 
@@ -75,7 +76,7 @@ function Questions(props) {
 
     const check_submitted_responses = async () =>  {
       //console.log('check_submitted_responses')
-      await fetch("https://4b97-136-206-48-13.ngrok-free.app/check_submitted_response",{
+      await fetch(config.SERVER_URL+"/check_submitted_response",{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -110,7 +111,7 @@ function Questions(props) {
     
 
     const fetchQuestions = () => {
-        fetch("https://4b97-136-206-48-13.ngrok-free.app/fetch_questions",{
+        fetch(config.SERVER_URL+"/fetch_questions",{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -155,7 +156,7 @@ function Questions(props) {
     //console.log('submitResponse')
     //console.log(requestData)
 
-    fetch("https://4b97-136-206-48-13.ngrok-free.app/submit_response",{
+    fetch(config.SERVER_URL+"/submit_response",{
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
