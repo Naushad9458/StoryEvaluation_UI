@@ -13,7 +13,7 @@ export default function AlertDialog(props) {
     <div>
       <Dialog
         open={props.open}
-        onClose={props.handleClose}
+        onClose={props.handleCancel}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
@@ -26,9 +26,12 @@ export default function AlertDialog(props) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          
-          <Button onClick={props.handleClose} autoFocus>
+          <Button onClick={props.handleConfirm} autoFocus>
             Confirm
+          </Button>
+
+          <Button onClick={props.handleCancel} autoFocus>
+            Cancel
           </Button>
         </DialogActions>
       </Dialog>
