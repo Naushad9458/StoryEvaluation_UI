@@ -14,6 +14,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate, Navigate} from 'react-router-dom';
+import config from '../config.json';
 
 
 
@@ -49,7 +50,7 @@ export default function Login(props) {
     event.preventDefault();
     
     
-    const response = await fetch('https://4b97-136-206-48-13.ngrok-free.app/login', {
+    const response = await fetch(config.SERVER_URL+'/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
