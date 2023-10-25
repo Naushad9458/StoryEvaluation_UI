@@ -15,6 +15,7 @@ import {
 import { makeStyles } from '@mui/styles';
 import { useNavigate ,Navigate} from 'react-router-dom';
 import Chip from '@mui/material/Chip';
+import Config from '../config.json';
 
 const useStyles = makeStyles((theme) => ({
   table: {
@@ -46,7 +47,7 @@ const Home = (props) => {
 
   useEffect(() => {
     // Make an API call when the component mounts
-    fetch('https://4b97-136-206-48-13.ngrok-free.app/fetch_tasks', {
+    fetch(Config.SERVER_URL+'/fetch_tasks', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -135,7 +136,7 @@ const Home = (props) => {
           </TableBody>
         </Table>
       </TableContainer>
-
+      
       <hr></hr>
       <br></br>
 
