@@ -41,7 +41,7 @@ export default function ImageDispStepper(props) {
 
      // CSS styles for the container div
     const containerStyle = {
-      maxHeight: '400px', // Adjust the maximum height as needed
+      maxHeight: '100%', // Adjust the maximum height as needed
       overflowY: 'auto', // Add vertical scrollbar when content exceeds the container height
     };
 
