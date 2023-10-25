@@ -12,15 +12,15 @@ import TextField from '@mui/material/TextField';
 import Questions from './Questions';
 import AlertDialog from './AlertDialog';
 import AlertInstructions from './AlertInstructions';
+import config from '../config.json';
 
 const StoryDisp = (props) => {
     const theme = useTheme();
     var ed = require('edit-distance');
 
-
     const insert = function(node) { return 1; };
     const remove = function(node) { return 1; };
-    const update = function(stringA, stringB) { return stringA !== stringB ? 1 : 0; };
+    const update = function(stringA, stringB) { return stringA!== stringB? 1 : 0;};
 
     const [activeStep, setActiveStep] = React.useState(0);
     const [alertOpen, setAlertOpen] = React.useState(false);
@@ -50,7 +50,7 @@ const StoryDisp = (props) => {
     },[]);
 
     const fetchStoryData = () => {
-      fetch("https://4b97-136-206-48-13.ngrok-free.app/fetch_stories", {
+      fetch(config.SERVER_URL+"/fetch_stories", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -86,7 +86,7 @@ const StoryDisp = (props) => {
           setStories(json[0])
           setEditedStories(json[0])
 
-          console.log('split')
+          
           //console.log(editedStories[displayOrder[activeStep]].split('.').map((line, index) => ( <p key={index}>{line}</p>)))
           
           
