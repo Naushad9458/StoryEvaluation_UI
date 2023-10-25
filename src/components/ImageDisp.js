@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useEffect } from 'react';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
+import config from '../config.json';
 
 export default function ImageDisplay(props) {
 
@@ -23,7 +24,7 @@ export default function ImageDisplay(props) {
       }, []);
     
     const fetchData = () => {
-        fetch("https://4b97-136-206-48-13.ngrok-free.app/fetch_images", {
+        fetch(config.SERVER_URL+"/fetch_images", {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
