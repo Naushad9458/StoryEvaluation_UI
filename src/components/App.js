@@ -7,6 +7,7 @@ import RegisterUser from './RegisterUser';
 import Eval from './Eval';
 import { useState } from 'react';
 
+
 function App() {
 
 
@@ -22,8 +23,8 @@ function App() {
   return (
     <Router>
       <Routes>
+        <Route path="/" element={<Login isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} user={user} setUser={setUser} />} /> 
         
-        <Route path="/" element={<Login isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} user={user} setUser={setUser} />} />
         <Route path="/home" element={<Home isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} user={user} setUser={setUser}/>} />
         <Route path="/adduser" element={<RegisterUser />} />
         <Route path="/admin" element={<Admin />} />
