@@ -13,6 +13,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Snackbar from '@mui/material/Snackbar';
+import config from '../config.json';
 
 const theme = createTheme();
 
@@ -23,7 +24,7 @@ export default function RegisterUser() {
         event.preventDefault();
         console.log(event.currentTarget.username.value)
         console.log(event.currentTarget.password.value)
-        const response = await fetch('https://4b97-136-206-48-13.ngrok-free.app/register', {
+        const response = await fetch(config.SERVER_URL+'/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
