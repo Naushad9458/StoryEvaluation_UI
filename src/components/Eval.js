@@ -3,6 +3,7 @@ import Navbar from './Navbar';
 import ImageDisplay from './ImageDisp';
 import StoryDisp from './StoryDisp';
 import { useNavigate ,Navigate , useParams} from 'react-router-dom';
+import StepperTest from './StepperComponents/StepperTest';
 
 
 export default function Eval(props) {
@@ -29,14 +30,12 @@ export default function Eval(props) {
     return (
         <div>
             <Navbar handleLogout={handleLogout} user={props.user}/>
-            <ImageDisplay eventID={eventID} eventDate={eventDate} user={user} setUser={setUser} isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated}/>
-            <StoryDisp eventID={eventID} eventDate={eventDate} user={user} setUser={setUser} isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated}/>            
+            <br></br>
+            <StepperTest eventID={eventID} eventDate={eventDate} user={user} setUser={setUser} isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated}/>
+            {/*<ImageDisplay eventID={eventID} eventDate={eventDate} user={user} setUser={setUser} isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated}/>
+            <StoryDisp eventID={eventID} eventDate={eventDate} user={user} setUser={setUser} isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated}/>*/}            
         </div>
     );
-
-
-
-
 }
 
 
