@@ -9,12 +9,14 @@ import ImageDispStepper from './ImageDispStepper';
 import StoryDispStepper from './StoryDispStepper';
 import { useEffect } from 'react';
 import EditStoryStepper from './EditStoryStepper';
+import TextBoxStory from './TextBoxStory';
 import config from '../../config.json';
 import SubmitResponse from './SubmitResponse';
 import {useNavigate} from 'react-router-dom';
+import Alert from '@mui/material/Alert';
+import Snackbar from '@mui/material/Snackbar';
 
-const steps = ['View Images', 'Read Narrative 1 and Evaluate', 'Edit Narrative 1', 'Read Narrative 2 and Evaluate', 
-'Edit Narrative 2', 'Read Narrative 3 and Evaluate', 'Edit Narrative 3', 'Read Narrative 4 and Evaluate', 'Edit Narrative 4','Submit'];
+const steps = ['View Images and Imagine a Narrative', 'Read Narrative and Evaluate', 'Edit Narrative','Submit'];
 
 export default function StepperTest(props) {
 
@@ -23,10 +25,11 @@ export default function StepperTest(props) {
   const [skipped, setSkipped] = React.useState(new Set());
 
   const [displayOrder, setDisplayOrder] = React.useState({})
-  const [stories, setStories] = React.useState([])
-  const [editedStories, setEditedStories] = React.useState([])
-
+  const [story, setStory] = React.useState([])
+  const [editedStory, setEditedStory] = React.useState([])
   const [questions, setQuestions] = React.useState([])
+  const [userStory, setUserStory] = React.useState('')
+  const [snackBarOpen, setSnackBarOpen] = React.useState(false);
 
   const [sliderValues1, setSliderValues1] = React.useState({
     1: 50, // Initial values for sliders
@@ -34,29 +37,12 @@ export default function StepperTest(props) {
     3: 50,
   });
 
-  const [sliderValues2, setSliderValues2] = React.useState({
-    1: 50, // Initial values for sliders
-    2: 50,
-    3: 50,
-  });
-
-  const [sliderValues3, setSliderValues3] = React.useState({
-    1: 50, // Initial values for sliders
-    2: 50,
-    3: 50,
-  });
-
-  const [sliderValues4, setSliderValues4] = React.useState({
-    1: 50, // Initial values for sliders
-    2: 50,
-    3: 50,
-  });
-
-  const [editDistance, setEditDistance] = React.useState([])
+  const [editDistance, setEditDistance] = React.useState(0)
+  const [editPercentage, setEditPercentage] = React.useState(0)
 
 
   useEffect(() => {
-    fetchStoryData()
+    fetchStoryData_new()
     fetchQuestions()
 
   },[]);
@@ -73,6 +59,26 @@ export default function StepperTest(props) {
     .then((json) => {
         setQuestions(json)
         //console.log(json)
+})}
+
+
+const fetchStoryData_new = () => {
+  fetch(config.SERVER_URL+"/fetch_stories", {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({eventID: props.eventID, eventDate: props.eventDate, system_name: props.system_name})
+    
+  })
+  .then((res) => res.json())
+  .then((json) => {
+
+    //console.log(json[0])
+    setStory(json[0])
+    setEditedStory(json[0])
+      
+
 })}
 
   const fetchStoryData = () => {
@@ -100,11 +106,11 @@ export default function StepperTest(props) {
         }
           
         setDisplayOrder(dict_temp)
-        setStories(json[0])
-        setEditedStories(json[0])
-        console.log(displayOrder)
-        console.log(stories[displayOrder[1]])
-        console.log(stories)
+        setStory(json[0])
+        setEditedStory(json[0])
+        //console.log(displayOrder)
+        //console.log(story[displayOrder[1]])
+        //console.log(story)
   })}
 
   function shuffleArray(array) {
@@ -119,6 +125,14 @@ export default function StepperTest(props) {
   }
 
 
+  const handleSnackBarClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setSnackBarOpen(false);
+  };
+
+
   const isStepOptional = (step) => {
     return step === 20;
   };
@@ -130,6 +144,19 @@ export default function StepperTest(props) {
     if (isStepSkipped(activeStep)) {
       newSkipped = new Set(newSkipped.values());
       newSkipped.delete(activeStep);
+    }
+    if(activeStep===0){
+      
+      //console.log(userStory)
+      if (userStory===''){
+
+        setSnackBarOpen(true);
+        return
+      }
+      else{
+        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        setSkipped(newSkipped);
+      }
     }
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
     setSkipped(newSkipped);
@@ -160,6 +187,15 @@ export default function StepperTest(props) {
   };
 
   return (
+    <div>
+
+    <Snackbar open={snackBarOpen} autoHideDuration={6000} onClose={handleSnackBarClose}>
+    <Alert onClose={handleSnackBarClose} severity="error" sx={{ width: '100%' }}>
+          Please write a story before proceeding to the next step.
+    </Alert>
+    </Snackbar>
+
+    
     <Box sx={{ width: '100%' }}>
       <Stepper activeStep={activeStep}>
         {steps.map((label, index) => {
@@ -176,7 +212,6 @@ export default function StepperTest(props) {
           return (
             <Step key={label} {...stepProps}>
               <StepLabel {...labelProps}>{label}</StepLabel>
-              
             </Step>
           );
         })}
@@ -197,47 +232,19 @@ export default function StepperTest(props) {
           
 
                 
-          {activeStep === 0 ? <ImageDispStepper eventID={props.eventID} eventDate={props.eventDate}/> : ''}
+          {activeStep === 0 ? <div><ImageDispStepper eventID={props.eventID} eventDate={props.eventDate} system_name={props.system_name}/> 
+          <TextBoxStory userStory={userStory} setUserStory={setUserStory}/></div>
+           : ''}
 
           {activeStep === 1 ?
           <div> 
-          <ImageDispStepper eventID={props.eventID} eventDate={props.eventDate}/>
-          <StoryDispStepper eventID={props.eventID} eventDate={props.eventDate} story={stories[displayOrder[0]]} questions={questions} sliderValues ={sliderValues1} setSliderValues ={setSliderValues1}/> 
+          <ImageDispStepper eventID={props.eventID} eventDate={props.eventDate} system_name={props.system_name}/>
+          <StoryDispStepper eventID={props.eventID} eventDate={props.eventDate} system_name={props.system_name} story={story['narrative_text']} questions={questions} sliderValues ={sliderValues1} setSliderValues ={setSliderValues1}/> 
           </div>
           : ''}
 
-          {activeStep === 2 ? <EditStoryStepper questions={questions} sliderValues ={sliderValues1} story={stories[displayOrder[0]]} editedStories={editedStories} editedStoryKey={displayOrder[0]} setEditedStories={setEditedStories} editDistance={editDistance} setEditDistance={setEditDistance}/> : ''}
-
-
-          {activeStep === 3 ?
-          <div> 
-          <ImageDispStepper eventID={props.eventID} eventDate={props.eventDate}/>
-          <StoryDispStepper eventID={props.eventID} eventDate={props.eventDate} story={stories[displayOrder[1]]} questions={questions} sliderValues ={sliderValues2} setSliderValues ={setSliderValues2}/> 
-          </div>
-          : ''}
-
-          {activeStep === 4 ? <EditStoryStepper questions={questions} sliderValues ={sliderValues2} story={stories[displayOrder[1]]} editedStories={editedStories} editedStoryKey={displayOrder[1]} setEditedStories={setEditedStories} editDistance={editDistance} setEditDistance={setEditDistance}/> : ''}
-
-          {activeStep === 5 ?
-          <div> 
-          <ImageDispStepper eventID={props.eventID} eventDate={props.eventDate}/>
-          <StoryDispStepper eventID={props.eventID} eventDate={props.eventDate} story={stories[displayOrder[2]]} questions={questions} sliderValues ={sliderValues3} setSliderValues ={setSliderValues3}/> 
-          </div>
-          : ''}
-
-          {activeStep === 6 ? <EditStoryStepper questions={questions} sliderValues ={sliderValues3} story={stories[displayOrder[2]]} editedStories={editedStories} editedStoryKey={displayOrder[2]} setEditedStories={setEditedStories} editDistance={editDistance} setEditDistance={setEditDistance}/> : ''}
-
-          {activeStep === 7 ?
-          <div> 
-          <ImageDispStepper eventID={props.eventID} eventDate={props.eventDate}/>
-          <StoryDispStepper eventID={props.eventID} eventDate={props.eventDate} story={stories[displayOrder[3]]} questions={questions} sliderValues ={sliderValues4} setSliderValues ={setSliderValues4}/> 
-          </div>
-          : ''}
-
-          {activeStep === 8 ? <EditStoryStepper questions={questions} sliderValues ={sliderValues4} story={stories[displayOrder[3]]} editedStories={editedStories} editedStoryKey={displayOrder[3]} setEditedStories={setEditedStories} editDistance={editDistance} setEditDistance={setEditDistance}/> : ''}
-
-          {activeStep === 9 ? <SubmitResponse eventID={props.eventID} eventDate={props.eventDate} user={props.user} sliderValues1 ={sliderValues1} sliderValues2 ={sliderValues2} sliderValues3={sliderValues3} sliderValues4={sliderValues4} stories={stories} editedStories={editedStories} displayOrder={displayOrder} editDistance={editDistance}/> : ''}
-
+          {activeStep === 2 ? <EditStoryStepper questions={questions} sliderValues ={sliderValues1} story={story} editedStory={editedStory} setEditedStory={setEditedStory} editDistance={editDistance} setEditDistance={setEditDistance} setEditPercentage={setEditPercentage}/> : ''}
+          {activeStep === 3 ? <SubmitResponse eventID={props.eventID} eventDate={props.eventDate} system_name={props.system_name} user={props.user} sliderValues1 ={sliderValues1} stories={story} editedStories={editedStory} editDistance={editDistance} editPercentage={editPercentage}/> : ''}
 
           <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
             <Button
@@ -245,9 +252,9 @@ export default function StepperTest(props) {
               onClick={activeStep === 0? backHome : handleBack}
               sx={{ mr: 1 }}
             >
-              Back
+            Back
             </Button>
-            <Box sx={{ flex: '1 1 auto' }} />
+            <Box sx={{flex: '1 1 auto'}} />
             {isStepOptional(activeStep) && (
               <Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
                 Skip
@@ -261,5 +268,6 @@ export default function StepperTest(props) {
         </React.Fragment>
       )}
     </Box>
+    </div>
   );
 }
