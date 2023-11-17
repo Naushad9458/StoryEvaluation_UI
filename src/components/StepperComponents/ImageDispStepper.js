@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import config from '../../config.json';
+import TextField from '@mui/material/TextField';
 
 export default function ImageDispStepper(props) {
 
@@ -12,6 +13,7 @@ export default function ImageDispStepper(props) {
 
     const {eventDate} = props;
     const {eventID} = props;
+    const {system_name} = props;
 
 
     //console.log(eventDate, 'ImageDisplay')
@@ -29,7 +31,7 @@ export default function ImageDispStepper(props) {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({eventID: eventID, eventDate: eventDate})
+          body: JSON.stringify({eventID: eventID, eventDate: eventDate, system_name: system_name})
           
         })
         .then((res) => res.json())
@@ -41,10 +43,9 @@ export default function ImageDispStepper(props) {
 
      // CSS styles for the container div
     const containerStyle = {
-      maxHeight: '500px', // Adjust the maximum height as needed
-      overflowY: 'auto', // Add vertical scrollbar when content exceeds the container height
+      maxHeight: '500px', //Adjust the maximum height as needed
+      overflowY: 'auto', //Add vertical scrollbar when content exceeds the container height
     };
-
 
   return (
     <div style={containerStyle}>
@@ -67,6 +68,8 @@ export default function ImageDispStepper(props) {
         </ImageListItem>
       ))}
     </ImageList>
+
+    
 
           
     </div>
