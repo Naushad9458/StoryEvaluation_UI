@@ -26,16 +26,18 @@ const SubmitResponse = (props) => {
     const {eventID} = props;
     const {eventDate} = props;
     const {user} = props;
+    const {system_name} = props;
     //const {stories} = props;
     const {editedStories} = props;
     const {editDistance} = props;
-    const {displayOrder} = props;
+    const {editPercentage} = props;
+
+
+    
+    
 
     const {sliderValues1} = props;
-    const {sliderValues2} = props;
-    const {sliderValues3} = props;
-    const {sliderValues4} = props;
-
+    
     const [showToast, setShowToast] = useState(false);
     const [submissionMessage, setSubmissionMessage] = useState('');
     const [submitButtonDisabled, setSubmitButtonDisable] = useState(false);
@@ -49,34 +51,14 @@ const SubmitResponse = (props) => {
           event_id: eventID,
           event_date: eventDate,
           user: user,
-
-          system_name_1: displayOrder[0],
-          slider1_1: sliderValues1[1],
-          slider2_1: sliderValues1[2],
-          slider3_1: sliderValues1[3],
-          editedStory_1: editDistance[displayOrder[0]]>0 ? editedStories[displayOrder[0]] : '',
-          editDistance_1: editDistance[displayOrder[0]]>0 ? editDistance[displayOrder[0]] : 0,
+          system_name: system_name,
+          slider_q1: sliderValues1[1],
+          slider_q2: sliderValues1[2],
+          slider_q3: sliderValues1[3],
+          editedStory: editDistance>0 ? editedStories['narrative_text'] : '',
+          editDistance: editDistance>0 ? editDistance : 0,
           
-          system_name_2: displayOrder[1],
-            slider1_2: sliderValues2[1],
-            slider2_2: sliderValues2[2],
-            slider3_2: sliderValues2[3],
-            editedStory_2: editDistance[displayOrder[1]]>0? editedStories[displayOrder[1]] : '',      
-            editDistance_2: editDistance[displayOrder[1]]>0? editDistance[displayOrder[1]] : 0,
-            
-            system_name_3: displayOrder[2],
-            slider1_3: sliderValues3[1],
-            slider2_3: sliderValues3[2],
-            slider3_3: sliderValues3[3],
-            editedStory_3: editDistance[displayOrder[2]]>0 ? editedStories[displayOrder[2]] : '',
-            editDistance_3: editDistance[displayOrder[2]]>0? editDistance[displayOrder[2]] : 0,
-
-            system_name_4: displayOrder[3],
-            slider1_4: sliderValues4[1],
-            slider2_4: sliderValues4[2],
-            slider3_4: sliderValues4[3],
-            editedStory_4: editDistance[displayOrder[3]]>0 ? editedStories[displayOrder[3]] : '',
-            editDistance_4: editDistance[displayOrder[3]]>0 ? editDistance[displayOrder[3]] : 0,
+          
         };
       //console.log('submitResponse')
       //console.log(requestData)
@@ -128,60 +110,30 @@ return (
           <TableHead>
             <TableRow>
               
-              <TableCell><b>Narrative ID</b></TableCell>
+              
               <TableCell><b>Score - Q1</b></TableCell>
               <TableCell><b>Score - Q2</b></TableCell>
               <TableCell><b>Score - Q3</b></TableCell>
               <TableCell><b>Edited Narrative</b></TableCell>
               <TableCell><b>Edit Distance</b></TableCell>
+              <TableCell><b>Edit Percent</b></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
 
             
             <TableRow>
-                <TableCell>1</TableCell>
                 <TableCell>{sliderValues1[1]}</TableCell>
                 <TableCell>{sliderValues1[2]}</TableCell>
                 <TableCell>{sliderValues1[3]}</TableCell>
-                <TableCell>{editDistance[displayOrder[0]]>0 ? 'Yes': 'No'}</TableCell>
-                <TableCell>{editDistance[displayOrder[0]]}</TableCell>
+                <TableCell>{editDistance>0 ? 'Yes': 'No'}</TableCell>
+                <TableCell>{editDistance}</TableCell>
+                <TableCell>{editPercentage} %</TableCell>
             </TableRow>
-
-            <TableRow>
-                <TableCell>2</TableCell>
-                <TableCell>{sliderValues2[1]}</TableCell>
-                <TableCell>{sliderValues2[2]}</TableCell>
-                <TableCell>{sliderValues2[3]}</TableCell>
-                <TableCell>{editDistance[displayOrder[1]]>0 ? 'Yes': 'No'}</TableCell>
-                <TableCell>{editDistance[displayOrder[1]]}</TableCell>
-            </TableRow>
-            
-            <TableRow>
-                <TableCell>3</TableCell>
-                <TableCell>{sliderValues3[1]}</TableCell>
-                <TableCell>{sliderValues3[2]}</TableCell>
-                <TableCell>{sliderValues3[3]}</TableCell>
-                <TableCell>{editDistance[displayOrder[2]]>0 ? 'Yes': 'No'}</TableCell>
-                <TableCell>{editDistance[displayOrder[2]]}</TableCell>
-            </TableRow>
-            
-            <TableRow>
-                <TableCell>4</TableCell>
-                <TableCell>{sliderValues4[1]}</TableCell>
-                <TableCell>{sliderValues4[2]}</TableCell>
-                <TableCell>{sliderValues4[3]}</TableCell>
-                <TableCell>{editDistance[displayOrder[3]]>0 ? 'Yes': 'No'}</TableCell>
-                <TableCell>{editDistance[displayOrder[3]]}</TableCell>
-            </TableRow>
-
-            
-
           </TableBody>
           </Table>
       </TableContainer>
       <br></br>
-        
         
         <Stack direction="row" spacing={5}>
         <Button variant="contained" onClick={submit} disabled={submitButtonDisabled} fullWidth='true'>Submit</Button>
