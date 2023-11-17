@@ -24,11 +24,12 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Login isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} user={user} setUser={setUser} />} /> 
-        
         <Route path="/home" element={<Home isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} user={user} setUser={setUser}/>} />
         <Route path="/adduser" element={<RegisterUser />} />
         <Route path="/admin" element={<Admin />} />
-        <Route path="/eval/:eventDate/:eventID" element={<Eval isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} user={user} setUser={setUser}/>} />
+        
+        <Route path="/eval/:eventDate/:eventID/:system_name" element={<Eval isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} user={user} setUser={setUser}/>} />
+        {/*<Route path="/eval" element={<Eval isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} user={user} setUser={setUser}/>} />*/}
         {/* Other routes */}
       </Routes>
     </Router>

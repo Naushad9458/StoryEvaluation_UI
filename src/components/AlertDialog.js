@@ -7,9 +7,6 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
 export default function AlertDialog(props) {
-
-
-  console.log(props.editDistance,'EditDistance')
   
 
   return (
@@ -25,16 +22,16 @@ export default function AlertDialog(props) {
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            You are modifying the narrative by making a total of {props.editDistance['narrative_text']} edits.
+            You are modifying the narrative by making a total of {props.editDistance} edits.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={props.handleConfirm} autoFocus>
-            Confirm
+            Confirm All Edits
           </Button>
 
           <Button onClick={props.handleCancel} autoFocus>
-            Cancel
+            Cancel All Edits
           </Button>
         </DialogActions>
       </Dialog>
