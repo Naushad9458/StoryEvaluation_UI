@@ -1,17 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Navbar from './Navbar';
-import ImageDisplay from './ImageDisp';
-import StoryDisp from './StoryDisp';
-import { useNavigate ,Navigate , useParams} from 'react-router-dom';
+import { useNavigate , useLocation} from 'react-router-dom';
 import StepperTest from './StepperComponents/StepperTest';
 
 
 export default function Eval(props) {
 
     const navigate = useNavigate();
+    const location = useLocation();
+    const { state } = location
 
-    const { eventID } = useParams();
-    const { eventDate } = useParams();
+
+    //console.log(state.eventID);
+    //console.log(state.eventDate);
+    //console.log(state.system_name);
+
+
+    //const { eventID } = useParams();
+    //const { eventDate } = useParams();
+    //const { system_name } = useParams();
 
     const user = props.user;
     const isAuthenticated = props.isAuthenticated;
@@ -31,11 +38,9 @@ export default function Eval(props) {
         <div>
             <Navbar handleLogout={handleLogout} user={props.user}/>
             <br></br>
-            <StepperTest eventID={eventID} eventDate={eventDate} user={user} setUser={setUser} isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated}/>
+            <StepperTest eventID={state.eventID} eventDate={state.eventDate} system_name={state.system_name} user={user} setUser={setUser} isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated}/>
             {/*<ImageDisplay eventID={eventID} eventDate={eventDate} user={user} setUser={setUser} isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated}/>
             <StoryDisp eventID={eventID} eventDate={eventDate} user={user} setUser={setUser} isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated}/>*/}            
         </div>
     );
 }
-
-
