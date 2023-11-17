@@ -54,7 +54,7 @@ function QuestionsStepper(props) {
   return (
     <div>
     {questions.map((tile) => (
-      <div key={tile.question_id}>
+      <div key={tile.ques_id}>
         <Box>
           <p key={tile.ques_id} className={classes.QuestionText} style={{ fontSize: '18px' }}>
             {tile.ques_text} 
