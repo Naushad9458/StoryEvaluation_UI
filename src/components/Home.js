@@ -13,7 +13,7 @@ import {
   Button,
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import { useNavigate ,Navigate} from 'react-router-dom';
+import { useNavigate ,Navigate, useHistory} from 'react-router-dom';
 import Chip from '@mui/material/Chip';
 import Config from '../config.json';
 
@@ -28,6 +28,7 @@ const Home = (props) => {
   // Sample data for pending and completed tasks
 
   const navigate = useNavigate();
+  //const history = useHistory();
   
 
   
@@ -37,13 +38,17 @@ const Home = (props) => {
 
   
 
-  const viewTask = (event_id, event_date) => {
-    //console.log(event_date);
-    //console.log(event_id);
+  const viewTask = (event_id, event_date, system_name) => { 
+    //navigate(`/eval/${event_date}/${event_id}/${system_name}` , { state: { key: "value" } });
+
+    navigate(`/eval` , { 
+      state: { 
+        eventID: event_id,
+        eventDate: event_date,
+        system_name: system_name,
+      }});
+    };
     
-    navigate(`/eval/${event_date}/${event_id}`);
-    //navigate(`/eval`);
-  }
 
   useEffect(() => {
     // Make an API call when the component mounts
@@ -119,15 +124,15 @@ const Home = (props) => {
             {tasks
               .filter(task => task.status === 'Unattempted' || task.status === 'Partially Completed')
               .map((task) => (
-                <TableRow key={task.event_id+'_'+task.event_date}>
+                <TableRow key={task.event_id+'_'+task.event_date+'_'+task.system_name}>
                   <TableCell>{task.event_id+'_'+task.event_date}</TableCell>
                   <TableCell>{task.event_date}</TableCell>
                   <TableCell><Chip 
                   label={task.status} 
-                  color={getColor(task.status)} />
+                  color={getColor(task.status)}/>
                   </TableCell>
                   <TableCell>
-                      <Button color="primary" onClick={() => viewTask(task.event_id, task.event_date)}>
+                      <Button color="primary" onClick={() => viewTask(task.event_id, task.event_date, task.system_name)}>
                         View Task
                       </Button>
                     </TableCell>
