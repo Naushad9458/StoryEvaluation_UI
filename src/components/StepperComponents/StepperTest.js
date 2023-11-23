@@ -153,10 +153,7 @@ const fetchStoryData_new = () => {
         setSnackBarOpen(true);
         return
       }
-      else{
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);
-        setSkipped(newSkipped);
-      }
+      
     }
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
     setSkipped(newSkipped);
