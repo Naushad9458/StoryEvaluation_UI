@@ -95,7 +95,7 @@ const EditStoryStepper = (props) => {
     return (
     <div>
 
-        {questions.map((tile) => (
+        {/*{questions.map((tile) => (
         <div key={tile.ques_id}>
         <Box>
           <p key={tile.ques_id} style={{fontSize: '18px'}}>
@@ -106,7 +106,7 @@ const EditStoryStepper = (props) => {
           </div>
         </Box>
       </div>
-        ))}
+        ))}*/}
 
     <p><b>Original Narrative</b></p>
     <TextField 
@@ -118,7 +118,7 @@ const EditStoryStepper = (props) => {
     InputProps={{ style: { fontSize: 18} }}>
     </TextField>
     <AlertDialog open={alertOpen} handleConfirm={alerthandleClose} handleCancel={cancelStoryEdit} handleClickOpen={alerthandleClickOpen} editDistance={editDistance}/>
-    <p><b>Edited Narrative</b></p>
+    <p><b>Pleases edit the below narrative if it doesn't accurately match the images above.</b></p>
     <Button onClick={editStoryHandle}>Edit Narrative</Button>
     <Button disabled={confirmEditDisabled} onClick={alerthandleClickOpen}>Confirm All Edits</Button>
     <Button onClick={cancelAllEdit}>Cancel All Edits</Button>
