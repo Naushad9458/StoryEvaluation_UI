@@ -243,7 +243,12 @@ const fetchStoryData_new = () => {
           </div>
           : ''}
 
-          {activeStep === 2 ? <EditStoryStepper questions={questions} sliderValues ={sliderValues1} story={story} editedStory={editedStory} setEditedStory={setEditedStory} editDistance={editDistance} setEditDistance={setEditDistance} setEditPercentage={setEditPercentage}/> : ''}
+          {activeStep === 2 ?
+          <div>
+            <ImageDispStepper eventID={props.eventID} eventDate={props.eventDate} system_name={props.system_name}/>
+            <EditStoryStepper questions={questions} sliderValues ={sliderValues1} story={story} editedStory={editedStory} setEditedStory={setEditedStory} editDistance={editDistance} setEditDistance={setEditDistance} setEditPercentage={setEditPercentage}/>
+          </div> 
+           : ''}
           {activeStep === 3 ? <SubmitResponse eventID={props.eventID} eventDate={props.eventDate} system_name={props.system_name} user={props.user} sliderValues1 ={sliderValues1} stories={story} editedStories={editedStory} editDistance={editDistance} editPercentage={editPercentage}/> : ''}
 
           <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
