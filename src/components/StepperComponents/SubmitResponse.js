@@ -114,9 +114,9 @@ return (
               <TableCell><b>Score - Q1</b></TableCell>
               <TableCell><b>Score - Q2</b></TableCell>
               <TableCell><b>Score - Q3</b></TableCell>
-              <TableCell><b>Edited Narrative</b></TableCell>
-              <TableCell><b>Edit Distance</b></TableCell>
-              <TableCell><b>Edit Percent</b></TableCell>
+              <TableCell><b>Narrative Edited?</b></TableCell>
+              <TableCell><b>Total Characters Modified</b></TableCell>
+              <TableCell><b>Modification Percentage</b></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
