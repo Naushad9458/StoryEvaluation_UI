@@ -38,7 +38,7 @@ const Home = (props) => {
 
   
 
-  const viewTask = (event_id, event_date, system_name) => { 
+  const viewTask = (event_id, system_name) => { 
     //navigate(`/eval/${event_date}/${event_id}/${system_name}` , { state: { key: "value" } });
 
     navigate(`/eval` , { 
@@ -61,7 +61,7 @@ const Home = (props) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log('Success:', data);
+        //console.log('Success:', data);
         setTasks(data);
         
       })

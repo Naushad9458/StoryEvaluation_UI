@@ -63,12 +63,13 @@ export default function StepperTest(props) {
 
 
 const fetchStoryData_new = () => {
+  console.log(props.system_name,'system_name')
   fetch(config.SERVER_URL+"/fetch_stories", {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({eventID: props.eventID, eventDate: props.eventDate, system_name: props.system_name})
+    body: JSON.stringify({eventID: props.eventID, system_name: props.system_name})
     
   })
   .then((res) => res.json())

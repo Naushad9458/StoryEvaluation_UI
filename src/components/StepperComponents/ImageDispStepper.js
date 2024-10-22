@@ -31,11 +31,12 @@ export default function ImageDispStepper(props) {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({eventID: eventID, eventDate: eventDate, system_name: system_name})
+          body: JSON.stringify({eventID: eventID})
           
         })
         .then((res) => res.json())
         .then((json) => {
+            console.log(json)
             setImageData(json)
           
             
