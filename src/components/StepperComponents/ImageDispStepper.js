@@ -36,7 +36,6 @@ export default function ImageDispStepper(props) {
         })
         .then((res) => res.json())
         .then((json) => {
-            console.log(json)
             setImageData(json)
           
             
