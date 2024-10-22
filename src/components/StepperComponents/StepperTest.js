@@ -146,7 +146,7 @@ const fetchStoryData_new = () => {
       newSkipped = new Set(newSkipped.values());
       newSkipped.delete(activeStep);
     }
-    if(activeStep===0){
+    /*if(activeStep===0){
       
       //console.log(userStory)
       if (userStory===''){
@@ -155,7 +155,7 @@ const fetchStoryData_new = () => {
         return
       }
       
-    }
+    }*/
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
     setSkipped(newSkipped);
   };
@@ -231,7 +231,7 @@ const fetchStoryData_new = () => {
 
                 
           {activeStep === 0 ? <div><ImageDispStepper eventID={props.eventID} eventDate={props.eventDate} system_name={props.system_name}/> 
-          <TextBoxStory userStory={userStory} setUserStory={setUserStory}/></div>
+          </div>
            : ''}
 
           {activeStep === 1 ?
