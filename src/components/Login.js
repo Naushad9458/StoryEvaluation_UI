@@ -59,6 +59,7 @@ export default function Login(props) {
     });
 
     const body = await response.json();
+    console.log(body);
     if(body!=='False' || body!=='Invalid Request'){
       if (props.setIsAuthenticated) {
         props.setIsAuthenticated(true);
