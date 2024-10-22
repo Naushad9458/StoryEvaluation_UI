@@ -116,7 +116,6 @@ const Home = (props) => {
             <TableRow>
               
               <TableCell><b>Task ID</b></TableCell>
-              <TableCell><b>Event Date</b></TableCell>
               <TableCell><b>Status</b></TableCell>
             </TableRow>
           </TableHead>
@@ -124,15 +123,14 @@ const Home = (props) => {
             {tasks
               .filter(task => task.status === 'Unattempted' || task.status === 'Partially Completed')
               .map((task) => (
-                <TableRow key={task.event_id+'_'+task.event_date+'_'+task.system_name}>
-                  <TableCell>{task.event_id+'_'+task.event_date}</TableCell>
-                  <TableCell>{task.event_date}</TableCell>
+                <TableRow key={task.task_id}>
+                  <TableCell>{task.task_id}</TableCell>
                   <TableCell><Chip 
                   label={task.status} 
                   color={getColor(task.status)}/>
                   </TableCell>
                   <TableCell>
-                      <Button color="primary" onClick={() => viewTask(task.event_id, task.event_date, task.system_name)}>
+                      <Button color="primary" onClick={() => viewTask(task.event_id, task.system_name)}>
                         View Task
                       </Button>
                     </TableCell>
@@ -155,7 +153,6 @@ const Home = (props) => {
             <TableRow>
               
               <TableCell><b>Task ID</b></TableCell>
-              <TableCell><b>Event Date</b></TableCell>
               <TableCell><b>Status</b></TableCell>
             </TableRow>
           </TableHead>
@@ -163,9 +160,8 @@ const Home = (props) => {
             {tasks
               .filter(task => task.status === 'Completed')
               .map((task) => (
-                <TableRow key={task.event_id+'_'+task.event_date}>
-                  <TableCell>{task.event_id+'_'+task.event_date}</TableCell>
-                  <TableCell>{task.event_date}</TableCell>
+                <TableRow key={task.task_id}>
+                  <TableCell>{task.task_id}</TableCell>
                   <TableCell><Chip 
                   label={task.status} 
                   color={getColor(task.status)} />
