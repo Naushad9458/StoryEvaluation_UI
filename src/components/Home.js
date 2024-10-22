@@ -44,7 +44,6 @@ const Home = (props) => {
     navigate(`/eval` , { 
       state: { 
         eventID: event_id,
-        eventDate: event_date,
         system_name: system_name,
       }});
     };
@@ -62,7 +61,7 @@ const Home = (props) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        //console.log('Success:', data);
+        console.log('Success:', data);
         setTasks(data);
         
       })
@@ -121,13 +120,13 @@ const Home = (props) => {
           </TableHead>
           <TableBody>
             {tasks
-              .filter(task => task.status === 'Unattempted' || task.status === 'Partially Completed')
+              .filter(task => task.status_task === 'Unattempted' || task.status_task === 'Partially Completed')
               .map((task) => (
                 <TableRow key={task.task_id}>
                   <TableCell>{task.task_id}</TableCell>
                   <TableCell><Chip 
-                  label={task.status} 
-                  color={getColor(task.status)}/>
+                  label={task.status_task} 
+                  color={getColor(task.status_task)}/>
                   </TableCell>
                   <TableCell>
                       <Button color="primary" onClick={() => viewTask(task.event_id, task.system_name)}>
@@ -164,7 +163,7 @@ const Home = (props) => {
                   <TableCell>{task.task_id}</TableCell>
                   <TableCell><Chip 
                   label={task.status} 
-                  color={getColor(task.status)} />
+                  color={getColor(task.status_task)} />
                 </TableCell>
                   
                 </TableRow>
