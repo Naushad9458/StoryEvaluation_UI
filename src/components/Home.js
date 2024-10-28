@@ -162,7 +162,7 @@ const Home = (props) => {
                 <TableRow key={task.task_id}>
                   <TableCell>{task.task_id}</TableCell>
                   <TableCell><Chip 
-                  label={task.status} 
+                  label={task.status_task} 
                   color={getColor(task.status_task)} />
                 </TableCell>
                   
