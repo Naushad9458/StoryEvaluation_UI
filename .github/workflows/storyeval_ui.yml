@@ -17,6 +17,7 @@ jobs:
     - name: Copy Folder
       run: |
         cp -r '/var/www/story_eval_ui/images_files/20220605/20220605' '/var/www/story_eval_ui/_work/StoryEvaluation_UI/StoryEvaluation_UI/public/'
+        cp -r '/var/www/story_eval_ui/images_files/201902' '/var/www/story_eval_ui/_work/StoryEvaluation_UI/StoryEvaluation_UI/public/'
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
