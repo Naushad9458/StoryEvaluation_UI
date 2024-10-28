@@ -49,7 +49,6 @@ const SubmitResponse = (props) => {
 
         const requestData = {
           event_id: eventID,
-          event_date: eventDate,
           user: user,
           system_name: system_name,
           slider_q1: sliderValues1[1],
