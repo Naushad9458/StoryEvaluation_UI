@@ -11,9 +11,9 @@ export default function ImageDispStepper(props) {
     //const {id} = state;
     const [imageData, setImageData] = React.useState([])
 
-    const {eventDate} = props;
+    
     const {eventID} = props;
-    const {system_name} = props;
+    
 
 
     //console.log(eventDate, 'ImageDisplay')
@@ -36,6 +36,7 @@ export default function ImageDispStepper(props) {
         })
         .then((res) => res.json())
         .then((json) => {
+            console.log(json)
             setImageData(json)
           
             
@@ -59,8 +60,9 @@ export default function ImageDispStepper(props) {
             //alt={`/images_files/${eventDate}/${eventDate}/${item.image}`}
             //src={`${process.env.PUBLIC_URL}/images_files/${eventDate}/${eventDate}/${item.image}`}
             //alt={`${process.env.PUBLIC_URL}/images_files/${eventDate}/${eventDate}/${item.image}`}
-            src= {process.env.PUBLIC_URL + '/' +eventDate+ '/' + item.image} 
-            alt={process.env.PUBLIC_URL + '/' +eventDate + '/'+ item.image}
+
+            src= {process.env.PUBLIC_URL + item.image.substring(36)}
+            alt={process.env.PUBLIC_URL + item.image.substring(36)}
             //src= {process.env.PUBLIC_URL + '/' + eventDate + '/' + eventDate + '/'+ item.image} 
             //alt={process.env.PUBLIC_URL + '/' + eventDate + '/' + eventDate + '/'+ item.image}
             loading="lazy"
