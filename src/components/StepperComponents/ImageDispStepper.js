@@ -61,8 +61,8 @@ export default function ImageDispStepper(props) {
             //src={`${process.env.PUBLIC_URL}/images_files/${eventDate}/${eventDate}/${item.image}`}
             //alt={`${process.env.PUBLIC_URL}/images_files/${eventDate}/${eventDate}/${item.image}`}
 
-            src= {process.env.PUBLIC_URL + '.' + item.image.substring(36)}
-            alt={process.env.PUBLIC_URL + '.' + item.image.substring(36)}
+            src= {process.env.PUBLIC_URL + item.image.substring(37)}
+            alt={process.env.PUBLIC_URL + item.image.substring(37)}
             //src= {process.env.PUBLIC_URL + '/' + eventDate + '/' + eventDate + '/'+ item.image} 
             //alt={process.env.PUBLIC_URL + '/' + eventDate + '/' + eventDate + '/'+ item.image}
             loading="lazy"
