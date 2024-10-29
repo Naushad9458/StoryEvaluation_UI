@@ -27,7 +27,7 @@ const SubmitResponse = (props) => {
     const {eventDate} = props;
     const {user} = props;
     const {system_name} = props;
-    //const {stories} = props;
+    const {stories} = props;
     const {editedStories} = props;
     const {editDistance} = props;
     const {editPercentage} = props;
@@ -54,6 +54,7 @@ const SubmitResponse = (props) => {
           slider_q1: sliderValues1[1],
           slider_q2: sliderValues1[2],
           slider_q3: sliderValues1[3],
+          original_story: stories['narrative_text'],
           editedStory: editDistance>0 ? editedStories['narrative_text'] : '',
           editDistance: editDistance>0 ? editDistance : 0,
           
