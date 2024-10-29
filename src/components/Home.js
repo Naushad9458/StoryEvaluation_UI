@@ -108,8 +108,9 @@ const Home = (props) => {
 
 
       <Typography variant="h6" component="h2" gutterBottom>
-        Pending Tasks
+        Pending Tasks: {tasks.filter(task => task.status_task === 'Unattempted' || task.status_task === 'Partially Completed').length}
       </Typography>
+      <div style={{ maxHeight: '400px', overflowY: 'auto' }}>
       <TableContainer component={Paper} className={classes.table}>
         <Table>
           <TableHead>
@@ -139,14 +140,15 @@ const Home = (props) => {
           </TableBody>
         </Table>
       </TableContainer>
+      </div>
       
       <hr></hr>
       <br></br>
 
       <Typography variant="h6" component="h2" gutterBottom>
-        Completed Tasks
+        Completed Tasks: {tasks.filter(task => task.status_task === 'Completed').length}
       </Typography>
-
+      <div style={{ maxHeight: '400px', overflowY: 'auto' }}>
       <TableContainer component={Paper} className={classes.table}>
         <Table>
           <TableHead>
@@ -172,6 +174,7 @@ const Home = (props) => {
           </TableBody>
         </Table>
       </TableContainer>
+      </div>
     </Container>
     </div>
   );
