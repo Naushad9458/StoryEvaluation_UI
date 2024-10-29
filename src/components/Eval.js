@@ -38,7 +38,7 @@ export default function Eval(props) {
         <div>
             <Navbar handleLogout={handleLogout} user={props.user}/>
             <br></br>
-            <StepperTest eventID={state.eventID} system_name={state.system_name} user={user} setUser={setUser} isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated}/>
+            <StepperTest taskID ={state.task_id} eventID={state.eventID} system_name={state.system_name} user={user} setUser={setUser} isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated}/>
             {/*<ImageDisplay eventID={eventID} eventDate={eventDate} user={user} setUser={setUser} isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated}/>
             <StoryDisp eventID={eventID} eventDate={eventDate} user={user} setUser={setUser} isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated}/>*/}            
         </div>

@@ -23,6 +23,7 @@ const SubmitResponse = (props) => {
 
     const navigate = useNavigate();
 
+    const {taskID} = props;
     const {eventID} = props;
     const {eventDate} = props;
     const {user} = props;
@@ -48,6 +49,7 @@ const SubmitResponse = (props) => {
     const submit = () => {
 
         const requestData = {
+          task_id: taskID,
           event_id: eventID,
           user: user,
           system_name: system_name,

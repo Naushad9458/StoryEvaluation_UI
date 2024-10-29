@@ -38,11 +38,12 @@ const Home = (props) => {
 
   
 
-  const viewTask = (event_id, system_name) => { 
+  const viewTask = (task_id, event_id, system_name) => { 
     //navigate(`/eval/${event_date}/${event_id}/${system_name}` , { state: { key: "value" } });
 
     navigate(`/eval` , { 
       state: { 
+        task_id: task_id,
         eventID: event_id,
         system_name: system_name,
       }});
@@ -129,7 +130,7 @@ const Home = (props) => {
                   color={getColor(task.status_task)}/>
                   </TableCell>
                   <TableCell>
-                      <Button color="primary" onClick={() => viewTask(task.event_id, task.system_name)}>
+                      <Button color="primary" onClick={() => viewTask(task.task_id, task.event_id, task.system_name)}>
                         View Task
                       </Button>
                     </TableCell>
@@ -157,7 +158,7 @@ const Home = (props) => {
           </TableHead>
           <TableBody>
             {tasks
-              .filter(task => task.status === 'Completed')
+              .filter(task => task.status_task === 'Completed')
               .map((task) => (
                 <TableRow key={task.task_id}>
                   <TableCell>{task.task_id}</TableCell>
